@@ -1,19 +1,14 @@
-﻿using Boticatio.Cashback.Infraestrutura;
-using System.Linq;
+﻿using Boticario.Cashback.Interface.Repositorio;
+using Boticatio.Cashback.Dominio;
 
 namespace Boticatio.Cashback.Repositorio
 {
-    public class RevendedorRepositorio : RepositorioBase
+    public class RevendedorRepositorio : RepositorioBase, IRevendedorRepositorio
     {
-        public void Test()
+        public void Add(Revendedor revendedor)
         {
-            var testw = new CashbackFactoryContext();
-            
-
-            using (var context = testw.CreateDbContext())
-            {
-                var test = context.Revendedores.Where(x => x.Id == 1);
-            }
+            Context.Revendedores.Add(revendedor);
+            Context.SaveChanges();
         }
     }
 }

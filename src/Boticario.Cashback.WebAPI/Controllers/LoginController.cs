@@ -1,5 +1,5 @@
-﻿using Boticario.Cashback.WebAPI.ViewModels;
-using Boticatio.Cashback.Dominio.Authenticação;
+﻿using Boticatio.Cashback.Dominio.Authenticação;
+using Boticatio.Cashback.ViewModels.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

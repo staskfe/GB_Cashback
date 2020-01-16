@@ -9,7 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Boticario.Cashback.Interface\Boticario.Cashback.Interface.csproj" />
     <ProjectReference Include="..\Boticatio.Cashback.Dominio\Boticatio.Cashback.Dominio.csproj" />
+    <ProjectReference Include="..\Boticatio.Cashback.IoC\Boticatio.Cashback.IoC.csproj" />
+    <ProjectReference Include="..\Boticatio.Cashback.ViewModels\Boticatio.Cashback.ViewModels.csproj" />
   </ItemGroup>
 
 
