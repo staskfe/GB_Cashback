@@ -1,12 +1,9 @@
 ﻿using Boticatio.Cashback.Infraestrutura;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Boticatio.Cashback.Repositorio
 {
-    public class RevendedorRepository
+    public class RevendedorRepositorio : RepositorioBase
     {
         public void Test()
         {
@@ -16,7 +13,6 @@ namespace Boticatio.Cashback.Repositorio
             using (var context = testw.CreateDbContext())
             {
                 var test = context.Revendedores.Where(x => x.Id == 1);
-                // do stuff
             }
         }
     }
