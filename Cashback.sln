@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticario.Cashback.Web", "src\Boticario.Cashback.Web\Boticario.Cashback.Web.csproj", "{1083DD92-3EF3-4C50-8874-F2CA46F27CFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticatio.Cashback.Dominio", "src\Boticatio.Cashback.Dominio\Boticatio.Cashback.Dominio.csproj", "{8BFDC18E-CE8F-47CF-9CEF-98506C4DA37C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticatio.Cashback.Repositorio", "src\Boticatio.Cashback.Repositorio\Boticatio.Cashback.Repositorio.csproj", "{260FFEE2-CEAD-4EFC-8D3F-3D1CF44C7A29}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticatio.Cashback.Application", "src\Boticatio.Cashback.Application\Boticatio.Cashback.Application.csproj", "{825044C1-0C9C-4F55-8CD8-B8F62983C63D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticatio.Cashback.IoC", "src\Boticatio.Cashback.IoC\Boticatio.Cashback.IoC.csproj", "{744A8C8C-0ED7-4B6E-A27A-4945AF93C6F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticatio.Cashback.Infraestrutura", "src\Boticatio.Cashback.Infraestrutura\Boticatio.Cashback.Infraestrutura.csproj", "{5FD1DFE8-13FE-4A6D-8629-2304D3D134C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticario.Cashback.Interface", "src\Boticario.Cashback.Interface\Boticario.Cashback.Interface.csproj", "{246199A3-BD7E-42FD-A4DB-314577E49453}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Apresentação", "1. Apresentação", "{8FBC2A15-878B-4C6C-A651-9A321CB5B57B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Aplicação", "2. Aplicação", "{B01424BD-EBD6-40A4-BBCD-0803A8D3375F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Dominio", "3. Dominio", "{9ADB29E4-9D46-4C5F-B809-62EC22D63238}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Infraestrutura", "5. Infraestrutura", "{C4753EB2-1CB8-4773-9E73-557883BB5C4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Repositorio", "4. Repositorio", "{6E83383F-3C1F-44E9-9309-9E99FF634A93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boticario.Cashback.WebAPI", "src\Boticario.Cashback.WebAPI\Boticario.Cashback.WebAPI.csproj", "{5DCECB9E-A0FA-40A9-A4BB-89FF30CF25C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Teste", "6. Teste", "{BAAF4D34-3277-4D36-AEE3-7C36E85902E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boticatio.Cashback.Aplication.Test", "src\Boticatio.Cashback.Aplication.Test\Boticatio.Cashback.Aplication.Test.csproj", "{4EC3D0B9-7A49-4B75-B3E1-73508EA0C362}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1083DD92-3EF3-4C50-8874-F2CA46F27CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1083DD92-3EF3-4C50-8874-F2CA46F27CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1083DD92-3EF3-4C50-8874-F2CA46F27CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1083DD92-3EF3-4C50-8874-F2CA46F27CFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BFDC18E-CE8F-47CF-9CEF-98506C4DA37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BFDC18E-CE8F-47CF-9CEF-98506C4DA37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BFDC18E-CE8F-47CF-9CEF-98506C4DA37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BFDC18E-CE8F-47CF-9CEF-98506C4DA37C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{260FFEE2-CEAD-4EFC-8D3F-3D1CF44C7A29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{260FFEE2-CEAD-4EFC-8D3F-3D1CF44C7A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{260FFEE2-CEAD-4EFC-8D3F-3D1CF44C7A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{260FFEE2-CEAD-4EFC-8D3F-3D1CF44C7A29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825044C1-0C9C-4F55-8CD8-B8F62983C63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825044C1-0C9C-4F55-8CD8-B8F62983C63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825044C1-0C9C-4F55-8CD8-B8F62983C63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825044C1-0C9C-4F55-8CD8-B8F62983C63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{744A8C8C-0ED7-4B6E-A27A-4945AF93C6F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{744A8C8C-0ED7-4B6E-A27A-4945AF93C6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{744A8C8C-0ED7-4B6E-A27A-4945AF93C6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{744A8C8C-0ED7-4B6E-A27A-4945AF93C6F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD1DFE8-13FE-4A6D-8629-2304D3D134C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD1DFE8-13FE-4A6D-8629-2304D3D134C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD1DFE8-13FE-4A6D-8629-2304D3D134C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD1DFE8-13FE-4A6D-8629-2304D3D134C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{246199A3-BD7E-42FD-A4DB-314577E49453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{246199A3-BD7E-42FD-A4DB-314577E49453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{246199A3-BD7E-42FD-A4DB-314577E49453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{246199A3-BD7E-42FD-A4DB-314577E49453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DCECB9E-A0FA-40A9-A4BB-89FF30CF25C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DCECB9E-A0FA-40A9-A4BB-89FF30CF25C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DCECB9E-A0FA-40A9-A4BB-89FF30CF25C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DCECB9E-A0FA-40A9-A4BB-89FF30CF25C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EC3D0B9-7A49-4B75-B3E1-73508EA0C362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EC3D0B9-7A49-4B75-B3E1-73508EA0C362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EC3D0B9-7A49-4B75-B3E1-73508EA0C362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EC3D0B9-7A49-4B75-B3E1-73508EA0C362}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1083DD92-3EF3-4C50-8874-F2CA46F27CFE} = {8FBC2A15-878B-4C6C-A651-9A321CB5B57B}
+		{8BFDC18E-CE8F-47CF-9CEF-98506C4DA37C} = {9ADB29E4-9D46-4C5F-B809-62EC22D63238}
+		{260FFEE2-CEAD-4EFC-8D3F-3D1CF44C7A29} = {6E83383F-3C1F-44E9-9309-9E99FF634A93}
+		{825044C1-0C9C-4F55-8CD8-B8F62983C63D} = {B01424BD-EBD6-40A4-BBCD-0803A8D3375F}
+		{744A8C8C-0ED7-4B6E-A27A-4945AF93C6F9} = {C4753EB2-1CB8-4773-9E73-557883BB5C4E}
+		{5FD1DFE8-13FE-4A6D-8629-2304D3D134C0} = {C4753EB2-1CB8-4773-9E73-557883BB5C4E}
+		{246199A3-BD7E-42FD-A4DB-314577E49453} = {9ADB29E4-9D46-4C5F-B809-62EC22D63238}
+		{5DCECB9E-A0FA-40A9-A4BB-89FF30CF25C0} = {8FBC2A15-878B-4C6C-A651-9A321CB5B57B}
+		{4EC3D0B9-7A49-4B75-B3E1-73508EA0C362} = {BAAF4D34-3277-4D36-AEE3-7C36E85902E9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B188E2EB-4B99-4B46-9167-17820470E756}
+	EndGlobalSection
+EndGlobal
