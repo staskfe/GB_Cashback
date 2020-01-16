@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Boticatio.Cashback.Dominio
 {
@@ -10,7 +11,7 @@ namespace Boticatio.Cashback.Dominio
         public float Valor { get; set; }
         public DateTime Data { get; set; }
 
-        public int RevendedorId { get; set; }
+        public int Revendedor_Id { get; set; }
         public Revendedor Revendedor { get; set; }
     }
 }

@@ -24,27 +24,27 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("Id", x => x.Id);
+                    table.PrimaryKey("PK_Revendedores", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Compra",
+                name: "Compras",
                 schema: "Cashback",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<int>(nullable: false),
-                    Valor = table.Column<float>(nullable: false),
+                    Codigo = table.Column<int>(maxLength: 100, nullable: false),
+                    Valor = table.Column<float>(maxLength: 30, nullable: false),
                     Data = table.Column<DateTime>(nullable: false),
-                    RevendedorId = table.Column<int>(nullable: false)
+                    Revendedor_Id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Compra", x => x.Id);
+                    table.PrimaryKey("PK_Compras", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Compra_Revendedores_RevendedorId",
-                        column: x => x.RevendedorId,
+                        name: "FK_Compras_Revendedores_Revendedor_Id",
+                        column: x => x.Revendedor_Id,
                         principalSchema: "Cashback",
                         principalTable: "Revendedores",
                         principalColumn: "Id",
@@ -52,16 +52,16 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Compra_RevendedorId",
+                name: "IX_Compras_Revendedor_Id",
                 schema: "Cashback",
-                table: "Compra",
-                column: "RevendedorId");
+                table: "Compras",
+                column: "Revendedor_Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Compra",
+                name: "Compras",
                 schema: "Cashback");
 
             migrationBuilder.DropTable(

@@ -26,26 +26,32 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Codigo")
-                        .HasColumnType("int");
+                        .HasColumnName("Codigo")
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("Data")
+                        .HasColumnName("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RevendedorId")
+                    b.Property<int>("Revendedor_Id")
                         .HasColumnType("int");
 
                     b.Property<float>("Valor")
-                        .HasColumnType("real");
+                        .HasColumnName("Valor")
+                        .HasColumnType("real")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RevendedorId");
+                    b.HasIndex("Revendedor_Id");
 
-                    b.ToTable("Compra");
+                    b.ToTable("Compras");
                 });
 
             modelBuilder.Entity("Boticatio.Cashback.Dominio.Revendedor", b =>
@@ -76,8 +82,7 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.ToTable("Revendedores");
                 });
@@ -86,7 +91,7 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                 {
                     b.HasOne("Boticatio.Cashback.Dominio.Revendedor", "Revendedor")
                         .WithMany("Compras")
-                        .HasForeignKey("RevendedorId")
+                        .HasForeignKey("Revendedor_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
