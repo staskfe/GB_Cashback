@@ -14,7 +14,7 @@ namespace Boticatio.Cashback.Infraestrutura
 
         public DbSet<Revendedor> Revendedores { get; set; }
 
-        private void ConfiguraCliente(ModelBuilder construtorDeModelos)
+        private void RevendedorTabela(ModelBuilder construtorDeModelos)
         {
             construtorDeModelos.Entity<Revendedor>(etd =>
             {
@@ -28,12 +28,27 @@ namespace Boticatio.Cashback.Infraestrutura
             });
         }
 
+        private void CompraTabela(ModelBuilder construtorDeModelos)
+        {
+            construtorDeModelos.Entity<Compra>(etd =>
+            {
+                etd.ToTable("Revendedores");
+                etd.HasKey(c => c.Id).HasName("Id");
+                etd.Property(c => c.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+                etd.Property(c => c.Codigo).HasColumnName("Codigo").HasMaxLength(100);
+                etd.Property(c => c.Data).HasColumnName("Data");
+                etd.Property(c => c.Valor).HasColumnName("Valor").HasMaxLength(30);
+                etd.HasOne(c => c.Revendedor).WithMany(h => h.Compras).HasForeignKey(g => g.RevendedorId);
+
+            });
+        }
+
         protected override void OnModelCreating(ModelBuilder construtorDeModelos)
         {
             construtorDeModelos.ForSqlServerUseIdentityColumns();
             construtorDeModelos.HasDefaultSchema("Cashback");
 
-            ConfiguraCliente(construtorDeModelos);
+            RevendedorTabela(construtorDeModelos);
         }
     }
 }

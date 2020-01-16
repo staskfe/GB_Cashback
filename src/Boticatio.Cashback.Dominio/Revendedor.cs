@@ -1,4 +1,6 @@
-﻿namespace Boticatio.Cashback.Dominio
+﻿using System.Collections.Generic;
+
+namespace Boticatio.Cashback.Dominio
 {
     public class Revendedor
     {
@@ -7,5 +9,7 @@
         public string Email { get; set; }
         public string CPF { get; set; }
         public string Senha { get; set; }
+
+        public IEnumerable<Compra> Compras { get; set; }
     }
 }
