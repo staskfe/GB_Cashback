@@ -12,9 +12,11 @@ namespace Boticatio.Cashback.IoC
         public void RegistrarDependencias(IServiceCollection services)
         {
             //Application
+            services.AddTransient<ICompraAplicação, CompraAplicação>();
             services.AddTransient<IRevendedorAplicação, RevendedorAplicação>();
 
             //Repositorio
+            services.AddTransient<ICompraRepositorio, CompraRepositorio>();
             services.AddTransient<IRevendedorRepositorio, RevendedorRepositorio>();
         }
 
