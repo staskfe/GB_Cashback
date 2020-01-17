@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Boticatio.Cashback.Infraestrutura.Migrations
 {
     [DbContext(typeof(CashbackContext))]
-    [Migration("20200116222357_Initial")]
+    [Migration("20200117160614_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,9 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                     b.Property<int>("Revendedor_Id")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status_Id")
+                        .HasColumnType("int");
+
                     b.Property<float>("Valor")
                         .HasColumnName("Valor")
                         .HasColumnType("real")
@@ -53,7 +56,39 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
 
                     b.HasIndex("Revendedor_Id");
 
+                    b.HasIndex("Status_Id");
+
                     b.ToTable("Compras");
+                });
+
+            modelBuilder.Entity("Boticatio.Cashback.Dominio.CompraStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descrição")
+                        .HasColumnName("Descrição")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompraStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descrição = "Em validação"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descrição = "Aprovado"
+                        });
                 });
 
             modelBuilder.Entity("Boticatio.Cashback.Dominio.Revendedor", b =>
@@ -94,6 +129,12 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                     b.HasOne("Boticatio.Cashback.Dominio.Revendedor", "Revendedor")
                         .WithMany("Compras")
                         .HasForeignKey("Revendedor_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Boticatio.Cashback.Dominio.CompraStatus", "Status")
+                        .WithMany()
+                        .HasForeignKey("Status_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

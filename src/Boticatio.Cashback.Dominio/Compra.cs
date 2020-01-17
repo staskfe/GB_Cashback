@@ -13,5 +13,10 @@ namespace Boticatio.Cashback.Dominio
 
         public int Revendedor_Id { get; set; }
         public Revendedor Revendedor { get; set; }
+
+        public int Status_Id { get; set; }
+        public CompraStatus Status { get; set; }
+
+
     }
 }
