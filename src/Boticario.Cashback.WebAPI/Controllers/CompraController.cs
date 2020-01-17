@@ -1,6 +1,8 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
 using Boticatio.Cashback.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Text.Json;
 
 namespace Boticario.Cashback.WebAPI.Controllers
 {
@@ -8,10 +10,12 @@ namespace Boticario.Cashback.WebAPI.Controllers
     [Route("compra")]
     public class CompraController : ControllerBase
     {
+        private IHttpClientFactory _httpClientFactory;
         public ICompraAplicação _compraAplicação;
-        public CompraController(ICompraAplicação compraAplicação)
+        public CompraController(ICompraAplicação compraAplicação, IHttpClientFactory httpClientFactory)
         {
             _compraAplicação = compraAplicação;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpPost]
@@ -45,5 +49,17 @@ namespace Boticario.Cashback.WebAPI.Controllers
             return base.Ok();
         }
 
+        [HttpGet]
+        [Route("acumulado")]
+        public async System.Threading.Tasks.Task<IActionResult> AcumuladoAsync(string cpf)
+        {
+            var client = _httpClientFactory.CreateClient("boticario");
+
+            var resposta = await client.GetAsync(string.Format("?cpf={0}", cpf));
+            var responseStream = await resposta.Content.ReadAsStreamAsync();
+            var acumulado = await JsonSerializer.DeserializeAsync<AcumuladoViewModel>(responseStream);
+
+            return base.Ok(acumulado);
+        }
     }
 }

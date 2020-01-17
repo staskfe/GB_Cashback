@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
+using System.Net.Http.Headers;
 
 namespace Boticario.Cashback.WebAPI
 {
@@ -27,6 +28,13 @@ namespace Boticario.Cashback.WebAPI
             registro.RegistrarDependencias(services);
 
             ConfigureAuthentication(services);
+
+            services.AddHttpClient();
+            services.AddHttpClient("boticario", c =>
+            {
+                c.BaseAddress = new Uri("https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback/");
+                c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm");
+            });
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
