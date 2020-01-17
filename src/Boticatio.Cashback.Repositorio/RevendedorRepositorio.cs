@@ -1,5 +1,7 @@
 ﻿using Boticario.Cashback.Interface.Repositorio;
 using Boticatio.Cashback.Dominio;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Boticatio.Cashback.Repositorio
 {
@@ -9,6 +11,11 @@ namespace Boticatio.Cashback.Repositorio
         {
             Context.Revendedores.Add(revendedor);
             Context.SaveChanges();
+        }
+
+        public IEnumerable<Revendedor> Listar()
+        {
+            return Context.Revendedores.AsEnumerable();
         }
     }
 }

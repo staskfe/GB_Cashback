@@ -1,6 +1,7 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
 using Boticario.Cashback.Interface.Repositorio;
 using Boticatio.Cashback.Dominio;
+using System.Collections.Generic;
 
 namespace Boticatio.Cashback.Application
 {
@@ -15,6 +16,11 @@ namespace Boticatio.Cashback.Application
         public void Add(Revendedor revendedor)
         {
             _revendedorRepositorio.Add(revendedor);
+        }
+
+        public IEnumerable<Revendedor> Listar()
+        {
+            return _revendedorRepositorio.Listar();
         }
     }
 }

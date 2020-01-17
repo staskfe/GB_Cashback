@@ -1,5 +1,6 @@
 ﻿using Boticatio.Cashback.Dominio;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Boticatio.Cashback.ViewModels
 {
@@ -38,7 +39,10 @@ namespace Boticatio.Cashback.ViewModels
                 Senha = revendedor.Senha
             };
         }
-
+        public static IEnumerable<RevendedorViewModel> ToViewModels(this IEnumerable<Revendedor> revendedores)
+        {
+            return revendedores.Select(ToViewModel);
+        }
 
     }
 }

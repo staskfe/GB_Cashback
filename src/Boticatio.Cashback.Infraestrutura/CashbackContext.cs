@@ -75,7 +75,7 @@ namespace Boticatio.Cashback.Infraestrutura
 
         protected override void OnModelCreating(ModelBuilder construtorDeModelos)
         {
-            construtorDeModelos.ForSqlServerUseIdentityColumns();
+            construtorDeModelos.UseIdentityColumns();
             construtorDeModelos.HasDefaultSchema("Cashback");
 
             RevendedorTabela(construtorDeModelos);

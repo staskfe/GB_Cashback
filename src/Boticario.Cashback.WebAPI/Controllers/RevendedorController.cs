@@ -1,5 +1,4 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
-using Boticatio.Cashback.Dominio;
 using Boticatio.Cashback.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,5 +23,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
             return base.Ok(revendedor);
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        { 
+            var result = _revendedorAplicação.Listar();
+            return base.Ok(result.ToViewModels());
+        }
     }
 }
