@@ -63,12 +63,9 @@ export class Login extends Component {
         event.preventDefault();
 
     }
-
-
-
     render() {
         return (
-            <div>
+            <div style={{ textAlign: "-webkit-center" }}>
                 <Col sm="6">
                     <Form onSubmit={this.ValidarUsuario}>
                         <Form.Group controlId="formBasicEmail">

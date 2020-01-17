@@ -15,7 +15,7 @@ namespace Boticatio.Cashback.Repositorio
 
         public IEnumerable<Revendedor> Listar()
         {
-            return Context.Revendedores.AsEnumerable();
+            return Context.Revendedores.OrderByDescending(x => x.Id).AsEnumerable();
         }
     }
 }
