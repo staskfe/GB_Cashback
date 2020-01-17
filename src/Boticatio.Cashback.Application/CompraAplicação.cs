@@ -1,5 +1,7 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
 using Boticario.Cashback.Interface.Repositorio;
+using Boticatio.Cashback.Dominio;
+using System.Collections.Generic;
 
 namespace Boticatio.Cashback.Application
 {
@@ -11,9 +13,23 @@ namespace Boticatio.Cashback.Application
             _compraRepositorio = compraRepositorio;
         }
 
-        public void Add()
+        public void Add(Compra compra)
         {
-            _compraRepositorio.Add();
+            _compraRepositorio.Add(compra);
+        }
+
+        public void Editar(Compra compra)
+        {
+            _compraRepositorio.Editar(compra);
+        }
+        public IEnumerable<Compra> Listar(int revendedor)
+        {
+            return _compraRepositorio.Listar(revendedor);
+        }
+        public void Remover(int id)
+        {
+            var compra = _compraRepositorio.GetPeloId(id);
+            _compraRepositorio.Remover(compra);
         }
     }
 }

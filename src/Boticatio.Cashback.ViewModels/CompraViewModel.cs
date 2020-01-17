@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Boticatio.Cashback.Dominio;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Boticatio.Cashback.ViewModels
 {
@@ -11,5 +14,37 @@ namespace Boticatio.Cashback.ViewModels
 
         public int Revendedor_Id { get; set; }
         public RevendedorViewModel Revendedor { get; set; }
+    }
+    public static class CompraViewModelExtension
+    {
+        public static Compra ToObject(this CompraViewModel compraViewModel)
+        {
+            return new Compra
+            {
+                Revendedor_Id = compraViewModel.Revendedor_Id,
+                Codigo = compraViewModel.Codigo,
+                Data = compraViewModel.Data,
+                Valor = compraViewModel.Valor,
+                Id = compraViewModel.Id
+            };
+        }
+        public static CompraViewModel ToViewModel(this Compra compra)
+        {
+            return new CompraViewModel
+            {
+                Codigo = compra.Codigo,
+                Data = compra.Data,
+                Id = compra.Id,
+                Revendedor_Id = compra.Revendedor_Id,
+                Valor = compra.Valor,
+                Revendedor = compra.Revendedor?.ToViewModel()
+            };
+        }
+
+        public static IEnumerable<CompraViewModel> ToViewModels(this IEnumerable<Compra> compras)
+        {
+            return compras.Select(ToViewModel);
+        }
+
     }
 }

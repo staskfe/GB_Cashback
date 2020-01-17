@@ -13,6 +13,7 @@ namespace Boticatio.Cashback.Infraestrutura
         { }
 
         public DbSet<Revendedor> Revendedores { get; set; }
+        public DbSet<Compra> Compras { get; set; }
 
         private void RevendedorTabela(ModelBuilder construtorDeModelos)
         {

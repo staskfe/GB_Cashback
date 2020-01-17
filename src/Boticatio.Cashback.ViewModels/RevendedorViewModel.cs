@@ -26,5 +26,19 @@ namespace Boticatio.Cashback.ViewModels
                 Senha = revendedorViewModel.Senha
             };
         }
+
+        public static RevendedorViewModel ToViewModel(this Revendedor revendedor)
+        {
+            return new RevendedorViewModel
+            {
+                CPF = revendedor.CPF,
+                Email = revendedor.Email,
+                Nome = revendedor.Nome,
+                Id = revendedor.Id,
+                Senha = revendedor.Senha
+            };
+        }
+
+
     }
 }
