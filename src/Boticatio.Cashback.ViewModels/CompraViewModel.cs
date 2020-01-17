@@ -17,6 +17,7 @@ namespace Boticatio.Cashback.ViewModels
 
         public int Status_Id { get; set; }
         public CompraStatusViewModel Status { get; set; }
+        public string  StatusDesc { get; set; }
     }
     public static class CompraViewModelExtension
     {
@@ -42,6 +43,8 @@ namespace Boticatio.Cashback.ViewModels
                 Valor = compra.Valor,
                 Revendedor = compra.Revendedor?.ToViewModel(),
                 Status_Id = compra.Status_Id,
+                StatusDesc = compra.Status.Descrição,
+
                 Status = compra.Status?.ToViewModel()
             };
         }

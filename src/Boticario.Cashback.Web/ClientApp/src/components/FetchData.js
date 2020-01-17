@@ -1,59 +1,78 @@
 import React, { Component } from 'react';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import _ from 'lodash';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+const dataTable = _.range(1, 60).map(x => ({ id: x, name: `Name ${x}`, surname: `Surname ${x}` }));
 
-  constructor(props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
-  }
+// Simulates the call to the server to get the data
+const fakeDataFetcher = {
+    fetch(page, size) {
+        return new Promise((resolve, reject) => {
+            resolve({ items: _.slice(dataTable, (page - 1) * size, ((page - 1) * size) + size), total: dataTable.length });
+        });
+    }
+};
 
-  componentDidMount() {
-    this.populateWeatherData();
-  }
+class DataGrid extends Component {
+    constructor(props) {
+        super(props);
 
-  static renderForecastsTable(forecasts) {
-    return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
+        this.state = {
+            items: [],
+            totalSize: 0,
+            page: 1,
+            sizePerPage: 10,
+        };
+        this.fetchData = this.fetchData.bind(this);
+        this.handlePageChange = this.handlePageChange.bind(this);
+        this.handleSizePerPageChange = this.handleSizePerPageChange.bind(this);
+    }
 
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+    componentDidMount() {
+        this.fetchData();
+    }
 
-    return (
-      <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-      </div>
-    );
-  }
+    fetchData(page = this.state.page, sizePerPage = this.state.sizePerPage) {
+        fakeDataFetcher.fetch(page, sizePerPage)
+            .then(data => {
+                this.setState({ items: data.items, totalSize: data.total, page, sizePerPage });
+            });
+    }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
-  }
+    handlePageChange(page, sizePerPage) {
+        this.fetchData(page, sizePerPage);
+    }
+
+    handleSizePerPageChange(sizePerPage) {
+        // When changing the size per page always navigating to the first page
+        this.fetchData(1, sizePerPage);
+    }
+
+    render() {
+        const options = {
+            onPageChange: this.handlePageChange,
+            onSizePerPageList: this.handleSizePerPageChange,
+            page: this.state.page,
+            sizePerPage: this.state.sizePerPage,
+        };
+
+        return (
+            <BootstrapTable
+                data={this.state.items}
+                options={options}
+                fetchInfo={{ dataTotalSize: this.state.totalSize }}
+                remote
+                pagination
+                striped
+                hover
+                condensed
+            >
+                <TableHeaderColumn dataField="id" isKey dataAlign="center">Id</TableHeaderColumn>
+                <TableHeaderColumn dataField="name" dataAlign="center">Name</TableHeaderColumn>
+                <TableHeaderColumn dataField="surname" dataAlign="center">Surname</TableHeaderColumn>
+            </BootstrapTable>
+        );
+    }
 }
+
+export default DataGrid;

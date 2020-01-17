@@ -6,7 +6,7 @@ import { Revendedor } from './components/Revendedor';
 import { Compra } from './components/Compra';
 import { Login } from './components/Login';
 
-import './custom.css'
+
 
 export default class App extends Component {
     static displayName = App.name;
@@ -15,7 +15,6 @@ export default class App extends Component {
         return (
             <Layout>
                 <Route exact={true} path='/' component={Login} />
-                <Route path='/home' component={Home} />
                 <Route path='/Revendedor' component={Revendedor} />
                 <Route path='/Compra' component={Compra} />
             </Layout>

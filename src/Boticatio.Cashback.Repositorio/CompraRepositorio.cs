@@ -1,5 +1,6 @@
 ﻿using Boticario.Cashback.Interface.Repositorio;
 using Boticatio.Cashback.Dominio;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +21,9 @@ namespace Boticatio.Cashback.Repositorio
         }
         public IEnumerable<Compra> Listar(int revendedor)
         {
-            return Context.Compras.Where(x => x.Revendedor_Id == revendedor);
+            return Context.Compras
+                .Include(x => x.Status)
+                .Where(x => x.Revendedor_Id == revendedor);
         }
 
         public void Remover(Compra compra)
