@@ -13,9 +13,10 @@ namespace Boticatio.Cashback.Dominio
     {
         [Description("Em validação")]
         Validação = 1,
-
         [Description("Aprovado")]
         Aprovado = 2,
+        [Description("Reprovado")]
+        Reprovado = 3,
     }
 
 }

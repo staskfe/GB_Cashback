@@ -85,6 +85,12 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                 columns: new[] { "Id", "Descrição" },
                 values: new object[] { 2, "Aprovado" });
 
+            migrationBuilder.InsertData(
+                schema: "Cashback",
+                table: "CompraStatus",
+                columns: new[] { "Id", "Descrição" },
+                values: new object[] { 3, "Reprovado" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Compras_Revendedor_Id",
                 schema: "Cashback",

@@ -86,6 +86,11 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                         {
                             Id = 2,
                             Descrição = "Aprovado"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descrição = "Reprovado"
                         });
                 });
 

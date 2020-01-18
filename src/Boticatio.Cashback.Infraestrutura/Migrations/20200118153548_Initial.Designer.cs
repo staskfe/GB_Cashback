@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Boticatio.Cashback.Infraestrutura.Migrations
 {
     [DbContext(typeof(CashbackContext))]
-    [Migration("20200117162506_Initial")]
+    [Migration("20200118153548_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,11 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                         {
                             Id = 2,
                             Descrição = "Aprovado"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descrição = "Reprovado"
                         });
                 });
 
