@@ -46,7 +46,7 @@ export class Compra extends Component {
     };
 
     buscarDados() {
-        fetch("http://localhost:5001/compra?revendedor_Id=1", {
+        fetch("http://localhost:5001/compra?revendedor_Id="+this.getRevendedor(), {
             method: "GET",
         })
             .then((response) => response.json())
@@ -87,6 +87,13 @@ export class Compra extends Component {
         );
 
     }
+    getRevendedor() {
+        var currentToken = localStorage.getItem('token');
+        var jsonToken = JSON.parse(currentToken);
+        return jsonToken.revendedor_id
+    }
+
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -147,10 +154,12 @@ export class Compra extends Component {
     }
     salvar(event) {
         event.preventDefault();
+       ;
         var compra = {
             Codigo: this.state.codigo,
             Valor: parseFloat(this.state.valor),
-            Data: this.state.date
+            Data: this.state.date,
+            Revendedor_Id:  this.getRevendedor()
         }
 
         fetch("http://localhost:5001/compra", {

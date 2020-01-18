@@ -15,11 +15,11 @@ namespace Boticatio.Cashback.Dominio
         public IEnumerable<Compra> Compras { get; set; }
 
 
-        public void CriarHash()
+        public string CriarHash()
         {
             byte[] data = Encoding.ASCII.GetBytes(this.Senha);
             data = new SHA256Managed().ComputeHash(data);
-            this.Senha = Encoding.ASCII.GetString(data);
+            return Encoding.ASCII.GetString(data);
         }
     }
 }

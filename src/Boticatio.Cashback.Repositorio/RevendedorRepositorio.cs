@@ -17,5 +17,9 @@ namespace Boticatio.Cashback.Repositorio
         {
             return Context.Revendedores.OrderByDescending(x => x.Id).AsEnumerable();
         }
+        public Revendedor GetRevendedorByEmail(string email)
+        {
+            return Context.Revendedores.FirstOrDefault(x => x.Email == email);
+        }
     }
 }

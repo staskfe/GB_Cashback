@@ -16,7 +16,6 @@ namespace Boticatio.Cashback.Application
         public void Add(Compra compra)
         {
             compra.Status_Id = (int)CompraStatusEnum.Validação;
-            compra.Revendedor_Id = 1;
             _compraRepositorio.Add(compra);
         }
 

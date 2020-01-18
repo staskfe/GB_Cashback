@@ -15,13 +15,28 @@ namespace Boticatio.Cashback.Application
 
         public void Add(Revendedor revendedor)
         {
-            revendedor.CriarHash();
+            revendedor.Senha = revendedor.CriarHash();
             _revendedorRepositorio.Add(revendedor);
         }
 
         public IEnumerable<Revendedor> Listar()
         {
             return _revendedorRepositorio.Listar();
+        }
+
+        public Revendedor ValidarLogin(Revendedor revendedor)
+        {
+            var usuario = _revendedorRepositorio.GetRevendedorByEmail(revendedor.Email);
+            if (usuario == null)
+            {
+                //Usuario invalido
+            }
+            if(usuario.Senha != revendedor.CriarHash())
+            {
+                //Usuario invalido
+            }
+            return usuario;
+
         }
     }
 }

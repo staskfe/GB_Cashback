@@ -15,13 +15,13 @@ namespace Boticatio.Cashback.Dominio.Authenticação
         public int Seconds { get; set; }
 
 
-        public object CreateToken(string email, SigningConfigurations signingConfigurations)
+        public object CreateToken(Revendedor usuario, SigningConfigurations signingConfigurations)
         {
             ClaimsIdentity identity = new ClaimsIdentity(
-                   new GenericIdentity(email, "Login"),
+                   new GenericIdentity(usuario.Email, "Login"),
                    new[] {
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, email)
+                        new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Email)
                    }
                );
 
@@ -48,6 +48,8 @@ namespace Boticatio.Cashback.Dominio.Authenticação
                 created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
                 expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
                 accessToken = token,
+                revendedor_id = usuario.Id,
+                revendedor_nome = usuario.Nome,
                 message = "OK"
             };
         }
