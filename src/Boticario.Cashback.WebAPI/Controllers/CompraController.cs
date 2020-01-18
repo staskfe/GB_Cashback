@@ -23,8 +23,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
         {
             var compra = compraViewModel.ToObject();
             _compraAplicação.Add(compra);
-
-            return base.Ok(compra);
+            return base.Ok(compra.ToViewModel());
         }
         [HttpGet]
         public IActionResult Get(int revendedor_Id)

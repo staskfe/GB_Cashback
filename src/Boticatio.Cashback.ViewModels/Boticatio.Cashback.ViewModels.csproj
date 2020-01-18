@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Boticatio.Cashback.Dominio\Boticatio.Cashback.Dominio.csproj" />
+    <ProjectReference Include="..\Boticatio.Cashback.Utils\Boticatio.Cashback.Utils.csproj" />
   </ItemGroup>
 
 </Project>

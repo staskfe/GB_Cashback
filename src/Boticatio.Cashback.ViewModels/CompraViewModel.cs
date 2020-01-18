@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Boticatio.Cashback.Utils;
 
 namespace Boticatio.Cashback.ViewModels
 {
@@ -43,7 +44,7 @@ namespace Boticatio.Cashback.ViewModels
                 Valor = compra.Valor,
                 Revendedor = compra.Revendedor?.ToViewModel(),
                 Status_Id = compra.Status_Id,
-                StatusDesc = compra.Status.Descrição,
+                StatusDesc = ((CompraStatusEnum)compra.Status_Id).Description(),
 
                 Status = compra.Status?.ToViewModel()
             };

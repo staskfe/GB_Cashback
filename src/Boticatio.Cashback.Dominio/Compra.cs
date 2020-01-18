@@ -17,6 +17,5 @@ namespace Boticatio.Cashback.Dominio
         public int Status_Id { get; set; }
         public CompraStatus Status { get; set; }
 
-
     }
 }
