@@ -33,5 +33,9 @@ namespace Boticatio.Cashback.Application
             var compra = _compraRepositorio.GetPeloId(id);
             _compraRepositorio.Remover(compra);
         }
+        public Compra GetPeloId(int id)
+        {
+            return _compraRepositorio.GetPeloId(id);
+        }
     }
 }

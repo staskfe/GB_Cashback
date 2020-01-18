@@ -30,7 +30,8 @@ namespace Boticatio.Cashback.ViewModels
                 Codigo = compraViewModel.Codigo,
                 Data = compraViewModel.Data,
                 Valor = compraViewModel.Valor,
-                Id = compraViewModel.Id
+                Id = compraViewModel.Id,
+                Status_Id = compraViewModel.Status_Id
             };
         }
         public static CompraViewModel ToViewModel(this Compra compra)

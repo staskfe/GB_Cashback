@@ -10,7 +10,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
     [Route("compra")]
     public class CompraController : ControllerBase
     {
-        private IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory _httpClientFactory;
         public ICompraAplicação _compraAplicação;
         public CompraController(ICompraAplicação compraAplicação, IHttpClientFactory httpClientFactory)
         {
@@ -47,6 +47,15 @@ namespace Boticario.Cashback.WebAPI.Controllers
             _compraAplicação.Remover(id);
             return base.Ok();
         }
+
+        [HttpGet]
+        [Route("byid")]
+        public IActionResult ById(int id)
+        {
+            var compras = _compraAplicação.GetPeloId(id).ToViewModel();
+            return base.Ok(compras);
+        }
+
 
         [HttpGet]
         [Route("acumulado")]

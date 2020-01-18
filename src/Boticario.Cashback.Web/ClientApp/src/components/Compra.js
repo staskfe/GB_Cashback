@@ -28,12 +28,15 @@ export class Compra extends Component {
             data: [],
             abrirModalSalvar: false,
             abrirModalDeletar: false,
-            deletarId: 0
+            abrirModalEditar: false,
+            compraId: 0,
+            dataToUpdate: {}
         };
         this.buscarDados();
         this.salvar = this.salvar.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.deletar = this.deletar.bind(this);
+        this.editar = this.editar.bind(this);
     }
     sucesso = (message) => {
         NotificationManager.success(message, 'Notification');
@@ -78,7 +81,7 @@ export class Compra extends Component {
     renderDrop(id) {
         return (
             <DropdownButton id="dropdown-item-button" title="Acoes" size="sm">
-                <Dropdown.Item as="button">Editar</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => this.managerModalEditar(true, id)}>Editar</Dropdown.Item>
                 <Dropdown.Item as="button" onClick={() => this.managerModalDeletar(true, id)}>Excluir</Dropdown.Item>
             </DropdownButton>
         );
@@ -99,13 +102,41 @@ export class Compra extends Component {
 
         if (id != undefined) {
             this.setState({
-                deletarId: id.id
+                compraId: id.id
             });
         }
     }
+
+    managerModalEditar(value, id) {
+        if (id != undefined) {
+            var compra = this.findArray(this.state.data, id.id)
+            compra.data = compra.data.substring(0, 10);
+
+            console.log(compra);
+            this.setState({
+                dataToUpdate: compra,
+                compraId: id.id
+
+            });
+        }
+
+
+        this.setState({
+            abrirModalEditar: value
+        });
+
+
+    }
+
+    findArray(array, id) {
+        return array.find((element) => {
+            return element.id === id;
+        })
+    }
+
     deletar(event) {
         event.preventDefault();
-        var id = this.state.deletarId;
+        var id = this.state.compraId;
         fetch("http://localhost:5001/compra?id=" + id, {
             method: "DELETE",
         })
@@ -147,6 +178,48 @@ export class Compra extends Component {
                 this.erro();
             });
     }
+    editar(event) {
+        event.preventDefault();
+        var compra = { }
+
+        if (this.state.codigo != undefined) {
+            compra.Codigo = parseInt(this.state.codigo)
+        } else {
+            compra.Codigo = this.state.dataToUpdate.codigo
+        }
+
+        if (this.state.valor != undefined) {
+            compra.Valor = parseFloat(this.state.valor)
+        } else {
+            compra.Valor = this.state.dataToUpdate.valor
+        }
+
+        if (this.state.date != undefined) {
+            compra.Data = this.state.date
+        } else {
+            compra.Data = this.state.dataToUpdate.data
+        }
+        compra.Revendedor_Id = this.state.dataToUpdate.revendedor_Id;
+        compra.Status_Id = this.state.dataToUpdate.status_Id;
+        compra.Id = this.state.dataToUpdate.id;
+
+
+        fetch("http://localhost:5001/compra", {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(compra)
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.managerModalEditar(false);
+                this.sucesso('Compra editada com sucesso!');
+                this.buscarDados();
+            })
+            .catch((error) => {
+                console.error(error);
+                this.erro();
+            });
+    }
     render() {
         return (
             <div>
@@ -169,13 +242,14 @@ export class Compra extends Component {
                 </Col>
                 {this.modalSalvar()}
                 {this.modalDeletar()}
+                {this.modalEditar()}
 
 
                 <NotificationContainer />
             </div>
         );
     }
-    
+
     modalSalvar() {
         return (
 
@@ -201,6 +275,37 @@ export class Compra extends Component {
                             <Button variant="primary" type="submit" > Save Changes </Button>
                             <span>   </span>
                             <Button variant="secondary" onClick={() => this.managerModalSalvar(false)}> Close </Button>
+                        </div>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        )
+    }
+    modalEditar() {
+        return (
+
+            <Modal size="lg" show={this.state.abrirModalEditar}>
+                <Modal.Header>
+                    <Modal.Title>Cadastrar compras</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={this.editar}>
+                        <Form.Group >
+                            <Form.Label>Codigo</Form.Label>
+                            <Form.Control placeholder="Codigo do produto" required onChange={this.handleChange} name="codigo" defaultValue={this.state.dataToUpdate.codigo} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Valor </Form.Label>
+                            <Form.Control placeholder="Valor do produto" required onChange={this.handleChange} name="valor" defaultValue={this.state.dataToUpdate.valor}/>
+                        </Form.Group>
+                        <Form.Group >
+                            <Form.Label>Data </Form.Label>
+                            <Form.Control placeholder="Data da compra" type="date" required onChange={this.handleChange} name="date" defaultValue={this.state.dataToUpdate.data} />
+                        </Form.Group>
+                        <div style={{ textAlign: "right" }}>
+                            <Button variant="primary" type="submit" > Save Changes </Button>
+                            <span>   </span>
+                            <Button variant="secondary" onClick={() => this.managerModalEditar(false)}> Close </Button>
                         </div>
                     </Form>
                 </Modal.Body>

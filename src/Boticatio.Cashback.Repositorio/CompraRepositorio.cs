@@ -23,7 +23,8 @@ namespace Boticatio.Cashback.Repositorio
         {
             return Context.Compras
                 .Include(x => x.Status)
-                .Where(x => x.Revendedor_Id == revendedor);
+                .Where(x => x.Revendedor_Id == revendedor)
+                .OrderByDescending(x => x.Id);
         }
 
         public void Remover(Compra compra)
