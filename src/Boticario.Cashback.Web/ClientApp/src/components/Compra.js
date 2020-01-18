@@ -85,15 +85,13 @@ export class Compra extends Component {
                 <Dropdown.Item as="button" onClick={() => this.managerModalDeletar(true, id)}>Excluir</Dropdown.Item>
             </DropdownButton>
         );
-
     }
+
     getRevendedor() {
         var currentToken = localStorage.getItem('token');
         var jsonToken = JSON.parse(currentToken);
         return jsonToken.revendedor_id
     }
-
-
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
