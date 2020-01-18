@@ -64,7 +64,6 @@ namespace Boticario.Cashback.WebAPI
             });
         }
 
-
         private void ConfigureAuthentication(IServiceCollection services)
         {
             var signingConfigurations = new SigningConfigurations();
