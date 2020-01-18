@@ -14,11 +14,14 @@ namespace Boticatio.Cashback.ViewModels
         public DateTime Data { get; set; }
 
         public int Revendedor_Id { get; set; }
-        public RevendedorViewModel Revendedor { get; set; }
 
         public int Status_Id { get; set; }
-        public CompraStatusViewModel Status { get; set; }
-        public string  StatusDesc { get; set; }
+        public string StatusDesc { get; set; }
+
+        public int PorcentagemCashback { get; set; }
+        public double ValorCashback { get; set; }
+
+
     }
     public static class CompraViewModelExtension
     {
@@ -43,11 +46,10 @@ namespace Boticatio.Cashback.ViewModels
                 Id = compra.Id,
                 Revendedor_Id = compra.Revendedor_Id,
                 Valor = compra.Valor,
-                Revendedor = compra.Revendedor?.ToViewModel(),
                 Status_Id = compra.Status_Id,
                 StatusDesc = ((CompraStatusEnum)compra.Status_Id).Description(),
-
-                Status = compra.Status?.ToViewModel()
+                PorcentagemCashback = compra.PorcentagemCashback,
+                ValorCashback = compra.ValorCashback
             };
         }
 

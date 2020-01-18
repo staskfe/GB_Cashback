@@ -43,6 +43,9 @@ namespace Boticatio.Cashback.Infraestrutura
                 etd.Property(c => c.Codigo).HasColumnName("Codigo").HasMaxLength(100).IsRequired();
                 etd.Property(c => c.Data).HasColumnName("Data").IsRequired();
                 etd.Property(c => c.Valor).HasColumnName("Valor").HasMaxLength(30).IsRequired();
+                etd.Property(c => c.ValorCashback).HasColumnName("ValorCashback").IsRequired();
+                etd.Property(c => c.PorcentagemCashback).HasColumnName("PorcentagemCashback").IsRequired();
+
                 etd.HasOne(c => c.Revendedor).WithMany(h => h.Compras).HasForeignKey(g => g.Revendedor_Id).IsRequired();
                 etd.HasOne(c => c.Status).WithMany().HasForeignKey(g => g.Status_Id);
 

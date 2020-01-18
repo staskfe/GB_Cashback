@@ -19,11 +19,11 @@ namespace Boticatio.Cashback.Repositorio
             Context.Compras.Update(compra);
             Context.SaveChanges();
         }
-        public IEnumerable<Compra> Listar(int revendedor)
+        public IEnumerable<Compra> Listar(int revendedor_Id)
         {
             return Context.Compras
                 .Include(x => x.Status)
-                .Where(x => x.Revendedor_Id == revendedor)
+                .Where(x => x.Revendedor_Id == revendedor_Id)
                 .OrderByDescending(x => x.Id);
         }
 

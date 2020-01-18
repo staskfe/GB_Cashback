@@ -8,7 +8,7 @@ namespace Boticario.Cashback.Interface.Repositorio
     {
         public void Add(Compra compra);
         public void Editar(Compra compra);
-        public IEnumerable<Compra> Listar(int revendedor);
+        public IEnumerable<Compra> Listar(int revendedor_Id);
         public void Remover(Compra compra);
         public Compra GetPeloId(int id);
     }

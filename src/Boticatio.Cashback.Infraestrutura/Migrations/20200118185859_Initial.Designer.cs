@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Boticatio.Cashback.Infraestrutura.Migrations
 {
     [DbContext(typeof(CashbackContext))]
-    [Migration("20200118170049_Initial")]
+    [Migration("20200118185859_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                         .HasColumnName("Data")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PorcentagemCashback")
+                        .HasColumnName("PorcentagemCashback")
+                        .HasColumnType("int");
+
                     b.Property<int>("Revendedor_Id")
                         .HasColumnType("int");
 
@@ -52,6 +56,10 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                         .HasColumnName("Valor")
                         .HasColumnType("real")
                         .HasMaxLength(30);
+
+                    b.Property<double>("ValorCashback")
+                        .HasColumnName("ValorCashback")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

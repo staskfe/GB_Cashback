@@ -16,6 +16,12 @@ const columns = [
         texto: "Data"
     },
     {
+        texto: "Procentagem do cashback"
+    },
+    {
+        texto: "Valor do cashback"
+    },
+    {
         texto: "Status",
     },
 ]
@@ -66,13 +72,15 @@ export class Compra extends Component {
     }
     renderTableData() {
         return this.state.data.map((compras) => {
-            const { id, codigo, valor, data, statusDesc } = compras
+            const { id, codigo, valor, data, porcentagemCashback, valorCashback, statusDesc } = compras
             return (
                 <tr key={id}>
                     <td style={{ textAlign: "center" }}>{this.renderDrop({ id })}</td>
                     <td>{codigo}</td>
                     <td>{valor}</td>
                     <td>{data}</td>
+                    <td>{porcentagemCashback}</td>
+                    <td>{valorCashback}</td>
                     <td>{statusDesc}</td>
                 </tr>
             )
@@ -111,7 +119,6 @@ export class Compra extends Component {
             });
         }
     }
-
     managerModalEditar(value, id) {
         if (id !== undefined) {
             var compra = this.findArray(this.state.data, id.id)
@@ -128,7 +135,6 @@ export class Compra extends Component {
         }
         
     }
-
     findArray(array, id) {
         return array.find((element) => {
             return element.id === id;

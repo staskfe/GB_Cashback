@@ -52,7 +52,9 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                     Valor = table.Column<float>(maxLength: 30, nullable: false),
                     Data = table.Column<DateTime>(nullable: false),
                     Revendedor_Id = table.Column<int>(nullable: false),
-                    Status_Id = table.Column<int>(nullable: false)
+                    Status_Id = table.Column<int>(nullable: false),
+                    PorcentagemCashback = table.Column<int>(nullable: false),
+                    ValorCashback = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
