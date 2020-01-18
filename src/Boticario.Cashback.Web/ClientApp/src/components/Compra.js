@@ -77,7 +77,7 @@ export class Compra extends Component {
                 <tr key={id}>
                     <td style={{ textAlign: "center" }}>{this.renderDrop({ id })}</td>
                     <td>{codigo}</td>
-                    <td>{valor}</td>
+                    <td>R${valor}</td>
                     <td>{data}</td>
                     <td>{porcentagemCashback}%</td>
                     <td>R${valorCashback}</td>

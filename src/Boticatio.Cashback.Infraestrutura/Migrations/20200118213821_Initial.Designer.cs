@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Boticatio.Cashback.Infraestrutura.Migrations
 {
     [DbContext(typeof(CashbackContext))]
-    [Migration("20200118185859_Initial")]
+    [Migration("20200118213821_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,6 +140,16 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Revendedores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CPF = "0000000",
+                            Email = "admin@admin.com",
+                            Nome = "Admin",
+                            Senha = "?iv??A???M???g??s?K??o*?H?"
+                        });
                 });
 
             modelBuilder.Entity("Boticatio.Cashback.Dominio.Compra", b =>

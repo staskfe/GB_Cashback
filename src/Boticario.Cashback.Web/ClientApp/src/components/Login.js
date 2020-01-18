@@ -2,6 +2,8 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import { Redirect } from 'react-router-dom';
+
 
 
 export class Login extends Component {
@@ -11,12 +13,14 @@ export class Login extends Component {
 
         this.state = {
             email: "",
-            senha: ""
+            senha: "",
+            authenticado: false
         };
 
         this.senhaAlterada = this.senhaAlterada.bind(this);
         this.ValidarUsuario = this.ValidarUsuario.bind(this);
         this.emailAlterado = this.emailAlterado.bind(this);
+        this.redirect = this.redirect.bind(this);
     }
 
     setLocalStorage(values) {
@@ -37,6 +41,13 @@ export class Login extends Component {
         });
     }
 
+    redirect() {
+        if (this.state.authenticado) {
+            return (<Redirect to="/Compra" />)
+        }
+
+    }
+
 
     ValidarUsuario(event) {
         var loginViewModel = {
@@ -51,10 +62,12 @@ export class Login extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                this.setLocalStorage(responseJson)
-
-
-                console.log(responseJson);
+                if (responseJson.authenticated) {
+                    this.setLocalStorage(responseJson)
+                    this.setState({
+                        authenticado: true
+                    });
+                }
             })
             .catch((error) => {
                 console.error(error);
@@ -65,6 +78,9 @@ export class Login extends Component {
     }
     render() {
         return (
+          
+
+
             <div style={{ textAlign: "-webkit-center" }}>
                 <Col sm="6">
                     <Form onSubmit={this.ValidarUsuario}>
@@ -83,6 +99,8 @@ export class Login extends Component {
                     </Button>
                     </Form>
                 </Col>
+                {this.redirect()}
+
             </div>
         );
     }
