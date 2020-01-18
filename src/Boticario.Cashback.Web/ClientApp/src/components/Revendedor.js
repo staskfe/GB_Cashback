@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Col, Dropdown, DropdownButton, Modal, Form } from 'react-bootstrap';
+import { Table, Button, Col, Modal, Form } from 'react-bootstrap';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const columns = [
@@ -24,7 +24,7 @@ export class Revendedor extends Component {
 
         };
         this.buscarDados();
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.salvar = this.salvar.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -39,7 +39,7 @@ export class Revendedor extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleSubmit(event) {
+    salvar(event) {
         event.preventDefault();
         var revendedor = {
             Nome: this.state.nome,
@@ -64,6 +64,7 @@ export class Revendedor extends Component {
                 this.sucesso();
             })
             .catch((error) => {
+                console.error(error);
                 this.erro();
             });
     }
@@ -101,14 +102,6 @@ export class Revendedor extends Component {
             )
         })
     }
-    renderDrop() {
-        return (
-            <DropdownButton id="dropdown-item-button" title="Acoes" size="sm">
-                <Dropdown.Item as="button">Editar</Dropdown.Item>
-                <Dropdown.Item as="button">Excluir</Dropdown.Item>
-            </DropdownButton>
-        );
-    }
     managerModal(value) {
         this.setState({
             openModal: value
@@ -133,16 +126,14 @@ export class Revendedor extends Component {
                             <tr>{this.renderTableHeader()}</tr>
                             {this.renderTableData()}
                         </tbody>
-
                     </Table>
                 </Col>
-
                 <Modal size="lg" show={this.state.openModal}>
                     <Modal.Header>
                         <Modal.Title>Cadastrar revendedor</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={this.salvar}>
                             <Form.Group >
                                 <Form.Label>Nome</Form.Label>
                                 <Form.Control placeholder="Nome" required onChange={this.handleChange} name="nome" />
