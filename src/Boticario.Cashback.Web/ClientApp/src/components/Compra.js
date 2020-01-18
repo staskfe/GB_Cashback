@@ -100,7 +100,7 @@ export class Compra extends Component {
             abrirModalDeletar: value
         });
 
-        if (id != undefined) {
+        if (id !== undefined) {
             this.setState({
                 compraId: id.id
             });
@@ -108,24 +108,20 @@ export class Compra extends Component {
     }
 
     managerModalEditar(value, id) {
-        if (id != undefined) {
+        if (id !== undefined) {
             var compra = this.findArray(this.state.data, id.id)
             compra.data = compra.data.substring(0, 10);
-
-            console.log(compra);
             this.setState({
                 dataToUpdate: compra,
-                compraId: id.id
-
+                compraId: id.id,
+                abrirModalEditar: value
+            });
+        } else {
+            this.setState({
+                abrirModalEditar: value
             });
         }
-
-
-        this.setState({
-            abrirModalEditar: value
-        });
-
-
+        
     }
 
     findArray(array, id) {
@@ -133,7 +129,6 @@ export class Compra extends Component {
             return element.id === id;
         })
     }
-
     deletar(event) {
         event.preventDefault();
         var id = this.state.compraId;
@@ -182,19 +177,19 @@ export class Compra extends Component {
         event.preventDefault();
         var compra = { }
 
-        if (this.state.codigo != undefined) {
+        if (this.state.codigo !== undefined) {
             compra.Codigo = parseInt(this.state.codigo)
         } else {
             compra.Codigo = this.state.dataToUpdate.codigo
         }
 
-        if (this.state.valor != undefined) {
+        if (this.state.valor !== undefined) {
             compra.Valor = parseFloat(this.state.valor)
         } else {
             compra.Valor = this.state.dataToUpdate.valor
         }
 
-        if (this.state.date != undefined) {
+        if (this.state.date !== undefined) {
             compra.Data = this.state.date
         } else {
             compra.Data = this.state.dataToUpdate.data
