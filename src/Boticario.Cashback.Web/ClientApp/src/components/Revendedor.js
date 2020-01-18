@@ -102,6 +102,7 @@ export class Revendedor extends Component {
             )
         })
     }
+
     managerModal(value) {
         this.setState({
             openModal: value

@@ -5,13 +5,8 @@ import { Revendedor } from './components/Revendedor';
 import { Compra } from './components/Compra';
 import { Login } from './components/Login';
 
-
-
 export default class App extends Component {
     static displayName = App.name;
-
-
-
     render() {
         return (
             <Layout>
