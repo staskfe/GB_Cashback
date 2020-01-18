@@ -7,13 +7,13 @@ const columns = [
         texto: ""
     },
     {
-        texto: "Codigo"
+        texto: "Codigo da compra"
     },
     {
-        texto: "Valor"
+        texto: "Valor da compra"
     },
     {
-        texto: "Data"
+        texto: "Data da compra"
     },
     {
         texto: "Procentagem do cashback"
@@ -79,8 +79,8 @@ export class Compra extends Component {
                     <td>{codigo}</td>
                     <td>{valor}</td>
                     <td>{data}</td>
-                    <td>{porcentagemCashback}</td>
-                    <td>{valorCashback}</td>
+                    <td>{porcentagemCashback}%</td>
+                    <td>R${valorCashback}</td>
                     <td>{statusDesc}</td>
                 </tr>
             )
@@ -269,11 +269,11 @@ export class Compra extends Component {
                     <Form onSubmit={this.salvar}>
                         <Form.Group >
                             <Form.Label>Codigo</Form.Label>
-                            <Form.Control placeholder="Codigo do produto" required onChange={this.handleChange} name="codigo" />
+                            <Form.Control placeholder="Codigo da compra" required onChange={this.handleChange} name="codigo" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Valor </Form.Label>
-                            <Form.Control placeholder="Valor do produto" type="number" step="0.01" required onChange={this.handleChange} name="valor" />
+                            <Form.Control placeholder="Valor da compra" type="number" step="0.01" required onChange={this.handleChange} name="valor" />
                         </Form.Group>
                         <Form.Group >
                             <Form.Label>Data </Form.Label>
@@ -300,11 +300,11 @@ export class Compra extends Component {
                     <Form onSubmit={this.editar}>
                         <Form.Group >
                             <Form.Label>Codigo</Form.Label>
-                            <Form.Control placeholder="Codigo do produto" required onChange={this.handleChange} name="codigo" defaultValue={this.state.dataToUpdate.codigo} />
+                            <Form.Control placeholder="Codigo da compra" required onChange={this.handleChange} name="codigo" defaultValue={this.state.dataToUpdate.codigo} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Valor </Form.Label>
-                            <Form.Control placeholder="Valor do produto" required onChange={this.handleChange} name="valor" defaultValue={this.state.dataToUpdate.valor}/>
+                            <Form.Control placeholder="Valor da compra" required onChange={this.handleChange} name="valor" defaultValue={this.state.dataToUpdate.valor}/>
                         </Form.Group>
                         <Form.Group >
                             <Form.Label>Data </Form.Label>
