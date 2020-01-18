@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button, Col, Dropdown, DropdownButton, Modal, Form } from 'react-bootstrap';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const columns = [
     {
@@ -26,12 +27,20 @@ export class Revendedor extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+
+    sucesso = () => {
+        NotificationManager.success('Revendedor criado!', 'Notification');
+    };
+    erro = () => {
+        NotificationManager.error('Erro ao criar revendedor');
+    };
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
+
     handleSubmit(event) {
         event.preventDefault();
-
         var revendedor = {
             Nome: this.state.nome,
             Email: this.state.email,
@@ -52,9 +61,10 @@ export class Revendedor extends Component {
                     data: updateData
                 });
                 this.managerModal(false);
+                this.sucesso();
             })
             .catch((error) => {
-                console.error(error);
+                this.erro();
             });
     }
 
@@ -72,11 +82,13 @@ export class Revendedor extends Component {
                 console.error(error);
             });
     }
+
     renderTableHeader() {
         return columns.map((key, index) => {
             return <th key={index}>{key.texto}</th>
         })
     }
+
     renderTableData() {
         return this.state.data.map((revendedores) => {
             const { id, nome, email, cpf } = revendedores
@@ -89,7 +101,6 @@ export class Revendedor extends Component {
             )
         })
     }
-
     renderDrop() {
         return (
             <DropdownButton id="dropdown-item-button" title="Acoes" size="sm">
@@ -98,9 +109,7 @@ export class Revendedor extends Component {
             </DropdownButton>
         );
     }
-
     managerModal(value) {
-
         this.setState({
             openModal: value
         });
@@ -115,6 +124,7 @@ export class Revendedor extends Component {
                 <br />
                 <br />
                 <Col style={{ textAlign: "right" }}>
+                    
                     <Button variant="primary" onClick={() => this.managerModal(true)} size="sm">Cadastrar revendedor</Button>
                 </Col>
                 <Col>
@@ -144,7 +154,7 @@ export class Revendedor extends Component {
                             <Form.Row>
                                 <Form.Group as={Col}>
                                     <Form.Label>CPF</Form.Label>
-                                    <Form.Control required onChange={this.handleChange} name="cpf" />
+                                    <Form.Control required onChange={this.handleChange} name="cpf" type="number" />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGridPassword">
                                     <Form.Label>Senha</Form.Label>
@@ -152,13 +162,14 @@ export class Revendedor extends Component {
                                 </Form.Group>
                             </Form.Row>
                             <div style={{ textAlign: "right" }}>
-                                <Button variant="primary" type="submit" onClick={() => this.save()}> Save Changes </Button>
+                                <Button variant="primary" type="submit" > Save Changes </Button>
                                 <span>   </span>
                                 <Button variant="secondary" onClick={() => this.managerModal(false)}> Close </Button>
                             </div>
                         </Form>
                     </Modal.Body>
                 </Modal>
+                <NotificationContainer />
             </div >
         );
     }
