@@ -31,10 +31,10 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(maxLength: 100, nullable: true),
-                    Email = table.Column<string>(maxLength: 30, nullable: true),
-                    CPF = table.Column<string>(maxLength: 30, nullable: true),
-                    Senha = table.Column<string>(maxLength: 30, nullable: true)
+                    Nome = table.Column<string>(maxLength: 100, nullable: false),
+                    Email = table.Column<string>(maxLength: 30, nullable: false),
+                    CPF = table.Column<string>(maxLength: 30, nullable: false),
+                    Senha = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,7 +48,7 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<int>(maxLength: 100, nullable: false),
+                    Codigo = table.Column<string>(maxLength: 100, nullable: false),
                     Valor = table.Column<float>(maxLength: 30, nullable: false),
                     Data = table.Column<DateTime>(nullable: false),
                     Revendedor_Id = table.Column<int>(nullable: false),

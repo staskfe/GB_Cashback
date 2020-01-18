@@ -148,7 +148,7 @@ export class Compra extends Component {
     salvar(event) {
         event.preventDefault();
         var compra = {
-            Codigo: parseInt(this.state.codigo),
+            Codigo: this.state.codigo,
             Valor: parseFloat(this.state.valor),
             Data: this.state.date
         }
@@ -178,15 +178,15 @@ export class Compra extends Component {
         var compra = { }
 
         if (this.state.codigo !== undefined) {
-            compra.Codigo = parseInt(this.state.codigo)
+            compra.Codigo = this.state.codigo
         } else {
-            compra.Codigo = this.state.dataToUpdate.codigo
+            compra.Codigo = this.state.dataToUpdate.codigo;
         }
 
         if (this.state.valor !== undefined) {
             compra.Valor = parseFloat(this.state.valor)
         } else {
-            compra.Valor = this.state.dataToUpdate.valor
+            compra.Valor = parseFloat(this.state.dataToUpdate.valor)
         }
 
         if (this.state.date !== undefined) {
@@ -260,7 +260,7 @@ export class Compra extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Valor </Form.Label>
-                            <Form.Control placeholder="Valor do produto" required onChange={this.handleChange} name="valor" />
+                            <Form.Control placeholder="Valor do produto" type="number" step="0.01" required onChange={this.handleChange} name="valor" />
                         </Form.Group>
                         <Form.Group >
                             <Form.Label>Data </Form.Label>

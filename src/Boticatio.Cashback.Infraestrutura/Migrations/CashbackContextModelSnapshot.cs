@@ -30,9 +30,10 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Codigo")
+                    b.Property<string>("Codigo")
+                        .IsRequired()
                         .HasColumnName("Codigo")
-                        .HasColumnType("int")
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<DateTime>("Data")
@@ -103,24 +104,28 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CPF")
+                        .IsRequired()
                         .HasColumnName("CPF")
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnName("Email")
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnName("Nome")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Senha")
+                        .IsRequired()
                         .HasColumnName("Senha")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 

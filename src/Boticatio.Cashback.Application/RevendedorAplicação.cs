@@ -15,6 +15,7 @@ namespace Boticatio.Cashback.Application
 
         public void Add(Revendedor revendedor)
         {
+            revendedor.CriarHash();
             _revendedorRepositorio.Add(revendedor);
         }
 
