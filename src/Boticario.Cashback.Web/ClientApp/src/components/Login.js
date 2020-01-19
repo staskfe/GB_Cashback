@@ -1,22 +1,17 @@
 ﻿import React, { Component } from 'react';
 import { Button, Form, Col, Row, Modal } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router-dom';
 
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
-
-
 export class Login extends Component {
-
     constructor(props) {
         super(props);
-
         this.state = {
             email: "",
             senha: "",
             authenticado: false,
             openModal: false,
-
         };
 
         this.senhaAlterada = this.senhaAlterada.bind(this);
@@ -47,8 +42,14 @@ export class Login extends Component {
     }
 
     redirect() {
-        if (this.state.authenticado) {
-            return (<Redirect exact to="/Compra" />)
+        var currentToken = localStorage.getItem('token');
+        var jsonToken = JSON.parse(currentToken);
+        if (jsonToken !== null) {
+            return (
+                <Switch>
+                    <Redirect to="/Compra" />
+                </Switch>
+            )
         }
     }
 
@@ -67,12 +68,14 @@ export class Login extends Component {
             .then((responseJson) => {
                 if (responseJson.authenticated) {
                     this.setLocalStorage(responseJson)
+                    this.sucesso("Usuario logado com sucesso")
                     this.setState({
                         authenticado: true
                     });
                 }
             })
             .catch((error) => {
+                this.erro("Erro ao logar");
                 console.error(error);
             });
 

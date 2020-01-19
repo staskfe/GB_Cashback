@@ -38,7 +38,6 @@ export class Compra extends Component {
             compraId: 0,
             dataToUpdate: {}
         };
-        this.buscarDados();
         this.salvar = this.salvar.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.deletar = this.deletar.bind(this);
@@ -51,8 +50,8 @@ export class Compra extends Component {
         NotificationManager.error('Erro ao cadastrar compra');
     };
 
-    buscarDados() {
-        fetch("http://localhost:5001/compra?revendedor_Id="+this.getRevendedor(), {
+    componentDidMount() {
+        fetch("http://localhost:5001/compra?revendedor_Id=" + this.getRevendedor(), {
             method: "GET",
         })
             .then((response) => response.json())
@@ -65,6 +64,8 @@ export class Compra extends Component {
                 console.error(error);
             });
     }
+
+
     renderTableHeader() {
         return columns.map((key, index) => {
             return <th key={index}>{key.texto}</th>
@@ -149,7 +150,7 @@ export class Compra extends Component {
             .then(() => {
                 this.managerModalDeletar(false);
                 this.sucesso('Compra deletada com sucesso!');
-                this.buscarDados();
+                this.componentDidMount();
             })
             .catch((error) => {
                 console.error(error);
@@ -221,7 +222,7 @@ export class Compra extends Component {
             .then((responseJson) => {
                 this.managerModalEditar(false);
                 this.sucesso('Compra editada com sucesso!');
-                this.buscarDados();
+                this.componentDidMount();
             })
             .catch((error) => {
                 console.error(error);

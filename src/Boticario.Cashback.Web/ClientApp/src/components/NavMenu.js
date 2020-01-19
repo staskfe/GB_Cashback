@@ -12,7 +12,7 @@ import {
     DropdownMenu,
     DropdownItem
 } from 'reactstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, Switch } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import './NavMenu.css';
 
@@ -78,19 +78,21 @@ export class NavMenu extends Component {
                     Seja bem vindo(a) {jsonToken.revendedor_nome}
                 </DropdownToggle>
                 <DropdownMenu>
-                    <DropdownItem onClick={() => this.logout()} active>Logout</DropdownItem>                   
+                    <DropdownItem onClick={() => this.logout()} >Logout</DropdownItem>
+                    <DropdownItem disabled >Cashback acumulado: 150</DropdownItem>
                 </DropdownMenu>
             </UncontrolledDropdown>
         )
     }
 
     redirect() {
-        if (this.state.logged) {
-            return (<Redirect to="/Compra" />)
-        } else {
-            return (<Redirect to="/" />)
+        if (!this.state.logged) {
+            return (
+                <Switch>
+                    <Redirect to="/" />
+                </Switch>
+            )
         }
-
     }
 
     render() {
@@ -111,12 +113,12 @@ export class NavMenu extends Component {
                             </ul>
                         </Collapse>
                         {this.getRevendedor()}
+                        <NavbarBrand > Cashback acumulado: </NavbarBrand>
                     </Container>
                 </Navbar>
                 <NotificationContainer />
                 {this.redirect()}
             </header>
-
         );
     }
 }

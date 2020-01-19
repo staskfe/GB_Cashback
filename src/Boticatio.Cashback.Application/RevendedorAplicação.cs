@@ -29,11 +29,11 @@ namespace Boticatio.Cashback.Application
             var usuario = _revendedorRepositorio.GetRevendedorByEmail(revendedor.Email);
             if (usuario == null)
             {
-                //Usuario invalido
+                throw new System.Exception("usuario ñ existe");
             }
             if(usuario.Senha != revendedor.CriarHash())
             {
-                //Usuario invalido
+                throw new System.Exception("Senha invalida");
             }
             return usuario;
 
