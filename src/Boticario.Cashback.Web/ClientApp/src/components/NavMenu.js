@@ -18,6 +18,8 @@ import Cookies from 'universal-cookie';
 import './NavMenu.css';
 import { CashbackAcumulado } from './CashbackAcumulado'
 
+import logo from './img/logo.png'; // Tell Webpack this JS file uses this image
+
 const cookies = new Cookies();
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
@@ -99,7 +101,7 @@ export class NavMenu extends Component {
             <header>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
                     <Container>
-                        <NavbarBrand > Boticario </NavbarBrand>
+                        <NavbarBrand><img src={logo} alt="Logo" /></NavbarBrand>
                         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                         <Collapse className="d-sm-inline-flex flex-sm-row" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">

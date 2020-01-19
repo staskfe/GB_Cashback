@@ -82,6 +82,8 @@ export class Login extends Component {
                     this.setState({
                         authenticado: true
                     });
+                } else {
+                    this.erro(responseJson.message)
                 }
             })
             .catch((error) => {

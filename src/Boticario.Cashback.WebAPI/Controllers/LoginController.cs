@@ -11,7 +11,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
 {
     [ApiController]
     [Route("login")]
-    public class LoginController : ControllerBase
+    public class LoginController : Controller
     {
         public IRevendedorAplicação _revendedorAplicação;
         private readonly ILogger<LoginController> _logger;
@@ -25,7 +25,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Post([FromBody]LoginViewModel loginViewModel, [FromServices]SigningConfigurations signingConfigurations, [FromServices]TokenConfigurations tokenConfigurations)
+        public object Post([FromBody]LoginViewModel loginViewModel, [FromServices]SigningConfigurations signingConfigurations, [FromServices]TokenConfigurations tokenConfigurations)
         {
             try
             {
@@ -37,7 +37,8 @@ namespace Boticario.Cashback.WebAPI.Controllers
             catch (UsuarioNaoEncontradoException ex)
             {
                 _logger.LogError("Usuario e/ou senha incorretos", ex);
-                throw;
+                var error = new { authenticated = false, message = "Usuario e senha invalidos" };
+                return base.Ok(error);
             }
             catch (Exception ex)
             {
