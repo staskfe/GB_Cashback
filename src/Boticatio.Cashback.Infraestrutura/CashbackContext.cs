@@ -30,16 +30,6 @@ namespace Boticatio.Cashback.Infraestrutura
                 etd.Property(c => c.Email).HasColumnName("Email").HasMaxLength(30).IsRequired();
                 etd.Property(c => c.Senha).HasColumnName("Senha").HasMaxLength(255).IsRequired();
                 etd.Property(c => c.CPF).HasColumnName("CPF").HasMaxLength(30).IsRequired();
-
-
-                etd.HasData(new Revendedor
-                {
-                    Id = 1,
-                    CPF = "0000000",
-                    Email = "admin@admin.com",
-                    Nome = "Admin",
-                    Senha = "?iv??A???M???g??s?K??o*?H?", //admin
-                });
             });
         }
 

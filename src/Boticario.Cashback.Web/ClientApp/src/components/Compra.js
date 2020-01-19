@@ -81,11 +81,23 @@ export class Compra extends Component {
         })
     }
     renderTableData() {
+        if (this.state.data.length === 0) {
+            return (<tr style={{ textAlign: "center" }} ><td colspan="7">Nao foram encontrados registros</td></tr>);
+        }
+
         return this.state.data.map((compras) => {
-            const { id, codigo, valor, data, porcentagemCashback, valorCashback, statusDesc } = compras
+
+            const { id, codigo, valor, data, porcentagemCashback, valorCashback, statusDesc, status_Id } = compras
+
+            var item = {
+                id: id,
+                status_Id: status_Id
+            }
+
+
             return (
                 <tr key={id}>
-                    <td style={{ textAlign: "center" }}>{this.renderDrop({ id })}</td>
+                    <td style={{ textAlign: "center" }}>{this.renderDrop({ item })}</td>
                     <td>{codigo}</td>
                     <td>R${valor}</td>
                     <td> <Moment format="DD/MM/YYYY">{data}</Moment></td>
@@ -96,11 +108,12 @@ export class Compra extends Component {
             )
         })
     }
-    renderDrop(id) {
+    renderDrop(item) {
+        var itemValue = item.item;
         return (
             <DropdownButton id="dropdown-item-button" title="Acoes" size="sm">
-                <Dropdown.Item as="button" onClick={() => this.managerModalEditar(true, id)}>Editar</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => this.managerModalDeletar(true, id)}>Excluir</Dropdown.Item>
+                <Dropdown.Item disabled={itemValue.status_Id !== 1} as="button" onClick={() => this.managerModalEditar(true, itemValue.id)}>Editar</Dropdown.Item>
+                <Dropdown.Item disabled={itemValue.status_Id !== 1} as="button" onClick={() => this.managerModalDeletar(true, itemValue.id)}>Excluir</Dropdown.Item>
             </DropdownButton>
         );
     }
@@ -127,17 +140,17 @@ export class Compra extends Component {
 
         if (id !== undefined) {
             this.setState({
-                compraId: id.id
+                compraId: id
             });
         }
     }
     managerModalEditar(value, id) {
         if (id !== undefined) {
-            var compra = this.findArray(this.state.data, id.id)
+            var compra = this.findArray(this.state.data, id)
             compra.data = compra.data.substring(0, 10);
             this.setState({
                 dataToUpdate: compra,
-                compraId: id.id,
+                compraId: id,
                 abrirModalEditar: value
             });
         } else {

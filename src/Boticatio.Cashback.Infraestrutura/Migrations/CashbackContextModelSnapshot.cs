@@ -138,16 +138,6 @@ namespace Boticatio.Cashback.Infraestrutura.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Revendedores");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CPF = "0000000",
-                            Email = "admin@admin.com",
-                            Nome = "Admin",
-                            Senha = "?iv??A???M???g??s?K??o*?H?"
-                        });
                 });
 
             modelBuilder.Entity("Boticatio.Cashback.Dominio.Compra", b =>

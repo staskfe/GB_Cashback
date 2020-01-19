@@ -96,6 +96,10 @@ export class Revendedor extends Component {
     }
 
     renderTableData() {
+        if (this.state.data.length === 0) {
+            return (<tr style={{ textAlign: "center" }} ><td colspan="3">Nao foram encontrados registros</td></tr>);
+        }
+
         return this.state.data.map((revendedores) => {
             const { id, nome, email, cpf } = revendedores
             return (
