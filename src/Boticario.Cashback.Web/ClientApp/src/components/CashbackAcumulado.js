@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, DropdownItem } from 'react-bootstrap';
+import { Modal, DropdownItem } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();

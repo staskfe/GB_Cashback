@@ -4,6 +4,7 @@ import { Redirect, Switch } from 'react-router-dom';
 
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import Cookies from 'universal-cookie';
+import login from './img/login.svg';
 
 const cookies = new Cookies();
 
@@ -97,10 +98,17 @@ export class Login extends Component {
     render() {
         return (
             <div>
+                <br />
+                <br />
                 <Row >
-                    <Col sm="8"  >
-                        
+                    <Col sm="1" ></Col>
+
+                    <Col sm="5"  >
+                        <br />
+                        <br />
+                        <img style={{ width: "inherit" }} src={login} alt="login" />
                     </Col>
+                    <Col sm="1" ></Col>
                     <Col sm="4">
                         <Form onSubmit={this.ValidarUsuario}>
                             <Form.Group controlId="formBasicEmail">
@@ -123,6 +131,7 @@ export class Login extends Component {
                             </Row>
                         </Form>
                     </Col>
+                    <Col sm="1" ></Col>
                 </Row>
 
                 {this.redirect()}

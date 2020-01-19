@@ -18,7 +18,7 @@ import Cookies from 'universal-cookie';
 import './NavMenu.css';
 import { CashbackAcumulado } from './CashbackAcumulado'
 
-import logo from './img/logo.png'; // Tell Webpack this JS file uses this image
+import logo from './img/logo.png';
 
 const cookies = new Cookies();
 export class NavMenu extends Component {
