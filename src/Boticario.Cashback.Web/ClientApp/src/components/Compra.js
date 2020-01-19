@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Table, Button, Col, Dropdown, DropdownButton, Modal, Form } from 'react-bootstrap';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const columns = [
     {
@@ -51,7 +54,12 @@ export class Compra extends Component {
     };
 
     componentDidMount() {
-        fetch("http://localhost:5001/compra?revendedor_Id=" + this.getRevendedor(), {
+        var token = this.getToken();
+        if (token === undefined) {
+            return;
+        }
+
+        fetch("http://localhost:5001/compra?revendedor_Id=" + token.revendedor_id, {
             method: "GET",
         })
             .then((response) => response.json())
@@ -95,12 +103,14 @@ export class Compra extends Component {
             </DropdownButton>
         );
     }
-
-    getRevendedor() {
-        var currentToken = localStorage.getItem('token');
-        var jsonToken = JSON.parse(currentToken);
-        return jsonToken.revendedor_id
+    getToken() {
+        var cookieItem = cookies.get('token')
+        if (cookieItem === undefined) {
+            return;
+        }
+        return cookieItem;
     }
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -134,7 +144,7 @@ export class Compra extends Component {
                 abrirModalEditar: value
             });
         }
-        
+
     }
     findArray(array, id) {
         return array.find((element) => {
@@ -159,12 +169,15 @@ export class Compra extends Component {
     }
     salvar(event) {
         event.preventDefault();
-       ;
+
         var compra = {
             Codigo: this.state.codigo,
             Valor: parseFloat(this.state.valor),
-            Data: this.state.date,
-            Revendedor_Id:  this.getRevendedor()
+            Data: this.state.date
+        }
+        var token = this.getToken();
+        if (token !== undefined) {
+            compra.Revendedor_Id = token.revendedor_id;
         }
 
         fetch("http://localhost:5001/compra", {
@@ -189,7 +202,7 @@ export class Compra extends Component {
     }
     editar(event) {
         event.preventDefault();
-        var compra = { }
+        var compra = {}
 
         if (this.state.codigo !== undefined) {
             compra.Codigo = this.state.codigo
@@ -305,7 +318,7 @@ export class Compra extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Valor </Form.Label>
-                            <Form.Control placeholder="Valor da compra" required onChange={this.handleChange} name="valor" defaultValue={this.state.dataToUpdate.valor}/>
+                            <Form.Control placeholder="Valor da compra" required onChange={this.handleChange} name="valor" defaultValue={this.state.dataToUpdate.valor} />
                         </Form.Group>
                         <Form.Group >
                             <Form.Label>Data </Form.Label>

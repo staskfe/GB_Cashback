@@ -3,6 +3,9 @@ import { Button, Form, Col, Row, Modal } from 'react-bootstrap';
 import { Redirect, Switch } from 'react-router-dom';
 
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export class Login extends Component {
     constructor(props) {
@@ -23,9 +26,17 @@ export class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    setLocalStorage(values) {
-        localStorage.setItem('token', JSON.stringify(values));
+    setCookie(values) {
+        var date = new Date(values.expiration); 
+        cookies.set('token', JSON.stringify(values), { path: '/', expires: date });
     };
+    getToken() {
+        var cookieItem = cookies.get('token')
+        if (cookieItem === undefined) {
+            return;
+        }
+        return cookieItem;
+    }
 
     senhaAlterada(event) {
         const target = event.target;
@@ -41,10 +52,9 @@ export class Login extends Component {
         });
     }
 
-    redirect() {
-        var currentToken = localStorage.getItem('token');
-        var jsonToken = JSON.parse(currentToken);
-        if (jsonToken !== null) {
+    redirect() {       
+        var jsonToken = this.getToken();
+        if (jsonToken !== undefined) {
             return (
                 <Switch>
                     <Redirect to="/Compra" />
@@ -67,7 +77,7 @@ export class Login extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.authenticated) {
-                    this.setLocalStorage(responseJson)
+                    this.setCookie(responseJson)
                     this.sucesso("Usuario logado com sucesso")
                     this.setState({
                         authenticado: true
@@ -86,8 +96,8 @@ export class Login extends Component {
         return (
             <div>
                 <Row >
-                    <Col sm="4" ></Col>
-                    <Col sm="4" >
+                    <Col sm="3" ></Col>
+                    <Col sm="6" >
                         <Form onSubmit={this.ValidarUsuario}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
@@ -104,14 +114,14 @@ export class Login extends Component {
                                     <Button onClick={() => this.managerModal(true)} variant="link">Criar conta</Button>
                                 </Col>
                                 <Col sm="6" style={{ textAlign: "right" }}>
-                                    <Button variant="primary" type="submit">Submit</Button>
+                                    <Button variant="primary" type="submit">Login</Button>
                                 </Col>
                             </Row>
 
 
                         </Form>
                     </Col>
-                    <Col sm="4"></Col>
+                    <Col sm="3"></Col>
                 </Row>
 
                 {this.redirect()}

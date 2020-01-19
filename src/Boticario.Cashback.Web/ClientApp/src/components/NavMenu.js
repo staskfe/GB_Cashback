@@ -12,9 +12,14 @@ import {
     DropdownMenu,
     DropdownItem
 } from 'reactstrap';
-import { Link, Redirect, Switch } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import './NavMenu.css';
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
+
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
@@ -25,10 +30,23 @@ export class NavMenu extends Component {
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
-            logged: false
+            logged: true
         };
 
     }
+
+
+    getToken() {
+        var cookieItem = cookies.get('token')
+        if (cookieItem === undefined) {
+            return;
+        }
+        return cookieItem;
+    }
+    removeToken() {
+        cookies.remove('token')
+    }
+
     success = (message) => {
         NotificationManager.success(message);
     };
@@ -39,43 +57,32 @@ export class NavMenu extends Component {
     }
 
     logout() {
+        this.removeToken();
+        this.setState({
+            logged: false
+        });
         this.success("Deslogado com sucesso");
+    }
 
-        localStorage.removeItem("token");
-
-        if (this.state.logged) {
-            this.setState({
-                logged: false
-            });
+    redirect() {
+        var jsonToken = this.getToken();
+        if (jsonToken === undefined) {
+            return (
+                <Redirect to="/" />
+            )
         }
     }
 
     getRevendedor() {
-        var currentToken = localStorage.getItem('token');
-        var jsonToken = JSON.parse(currentToken);
-        if (jsonToken === null) {
+        var currentToken = this.getToken();
+        if (currentToken === undefined) {
             return;
         }
-
-        var tokenDate = Date.parse(jsonToken.expiration);
-        var date = new Date();
-        var currentDate = Date.parse(date);
-
-        if (currentDate > tokenDate) {
-            this.erro("O token expirou!");
-            localStorage.removeItem("token");
-            return (<Redirect to="/" />)
-        } else {
-            if (!this.state.logged) {
-                this.setState({
-                    logged: true
-                });
-            }
-        }
+     
         return (
             <UncontrolledDropdown>
                 <DropdownToggle tag="a" className="nav-link" caret>
-                    Seja bem vindo(a) {jsonToken.revendedor_nome}
+                    Seja bem vindo(a) {currentToken.revendedor_nome}
                 </DropdownToggle>
                 <DropdownMenu>
                     <DropdownItem onClick={() => this.logout()} >Logout</DropdownItem>
@@ -84,15 +91,9 @@ export class NavMenu extends Component {
             </UncontrolledDropdown>
         )
     }
-
-    redirect() {
-        if (!this.state.logged) {
-            return (
-                <Switch>
-                    <Redirect to="/" />
-                </Switch>
-            )
-        }
+    isAuth() {
+        var currentToken = this.getToken();
+        return currentToken !== undefined;
     }
 
     render() {
@@ -105,19 +106,18 @@ export class NavMenu extends Component {
                         <Collapse className="d-sm-inline-flex flex-sm-row" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink style={this.state.logged ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Revendedor">Revendedor</NavLink>
+                                    <NavLink style={this.isAuth() ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Revendedor">Revendedor</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink style={this.state.logged ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Compra">Compra</NavLink>
+                                    <NavLink style={this.isAuth() ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Compra">Compra</NavLink>
                                 </NavItem>
                             </ul>
                         </Collapse>
                         {this.getRevendedor()}
-                        <NavbarBrand > Cashback acumulado: </NavbarBrand>
                     </Container>
                 </Navbar>
-                <NotificationContainer />
                 {this.redirect()}
+                <NotificationContainer />
             </header>
         );
     }
