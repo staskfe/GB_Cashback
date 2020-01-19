@@ -1,6 +1,7 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
 using Boticatio.Cashback.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Boticario.Cashback.WebAPI.Controllers
 {
@@ -9,9 +10,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
     public class RevendedorController : ControllerBase
     {
         public IRevendedorAplicação _revendedorAplicação;
-        public RevendedorController(IRevendedorAplicação revendedorAplicação)
+        private readonly ILogger<RevendedorController> _logger;
+        public RevendedorController(IRevendedorAplicação revendedorAplicação, ILogger<RevendedorController> logger)
         {
             _revendedorAplicação = revendedorAplicação;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -25,7 +28,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
 
         [HttpGet]
         public IActionResult Get()
-        { 
+        {
             var result = _revendedorAplicação.Listar();
             return base.Ok(result.ToViewModels());
         }

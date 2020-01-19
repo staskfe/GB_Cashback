@@ -96,8 +96,10 @@ export class Login extends Component {
         return (
             <div>
                 <Row >
-                    <Col sm="3" ></Col>
-                    <Col sm="6" >
+                    <Col sm="8"  >
+                        
+                    </Col>
+                    <Col sm="4">
                         <Form onSubmit={this.ValidarUsuario}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email </Form.Label>
@@ -117,11 +119,8 @@ export class Login extends Component {
                                     <Button variant="primary" type="submit">Login</Button>
                                 </Col>
                             </Row>
-
-
                         </Form>
                     </Col>
-                    <Col sm="3"></Col>
                 </Row>
 
                 {this.redirect()}
