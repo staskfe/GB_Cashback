@@ -100,12 +100,12 @@ export class Login extends Component {
                     <Col sm="6" >
                         <Form onSubmit={this.ValidarUsuario}>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control placeholder="Enter email" onChange={this.emailAlterado} />
+                                <Form.Label>Email </Form.Label>
+                                <Form.Control placeholder="Digite seu email" onChange={this.emailAlterado} />
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" onChange={this.senhaAlterada} />
+                                <Form.Label>Senha</Form.Label>
+                                <Form.Control type="password" placeholder="Senha" onChange={this.senhaAlterada} />
                             </Form.Group>
                             <Form.Group controlId="formBasicCheckbox">
                             </Form.Group>

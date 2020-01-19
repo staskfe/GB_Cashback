@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Button, Col, Dropdown, DropdownButton, Modal, Form } from 'react-bootstrap';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import Cookies from 'universal-cookie';
+import Moment from 'react-moment';
 
 const cookies = new Cookies();
 
@@ -87,7 +88,7 @@ export class Compra extends Component {
                     <td style={{ textAlign: "center" }}>{this.renderDrop({ id })}</td>
                     <td>{codigo}</td>
                     <td>R${valor}</td>
-                    <td>{data}</td>
+                    <td> <Moment format="DD/MM/YYYY">{data}</Moment></td>
                     <td>{porcentagemCashback}%</td>
                     <td>R${valorCashback}</td>
                     <td>{statusDesc}</td>
