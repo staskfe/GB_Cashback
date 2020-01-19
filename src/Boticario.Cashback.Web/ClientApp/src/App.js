@@ -6,6 +6,7 @@ import { Compra } from './components/Compra';
 import { Login } from './components/Login';
 import { Inicio } from './components/Inicio';
 
+
 export default class App extends Component {
     static displayName = App.name;
     render() {

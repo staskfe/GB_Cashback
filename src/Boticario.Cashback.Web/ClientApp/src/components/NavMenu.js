@@ -14,13 +14,11 @@ import {
 } from 'reactstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import './NavMenu.css';
-
 import Cookies from 'universal-cookie';
+import './NavMenu.css';
+import { CashbackAcumulado } from './CashbackAcumulado'
+
 const cookies = new Cookies();
-
-
-
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
 
@@ -30,7 +28,7 @@ export class NavMenu extends Component {
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
-            logged: true
+            logged: true,
         };
 
     }
@@ -86,7 +84,7 @@ export class NavMenu extends Component {
                 </DropdownToggle>
                 <DropdownMenu>
                     <DropdownItem onClick={() => this.logout()} >Logout</DropdownItem>
-                    <DropdownItem disabled >Cashback acumulado: 150</DropdownItem>
+                    <CashbackAcumulado />
                 </DropdownMenu>
             </UncontrolledDropdown>
         )
@@ -121,6 +119,7 @@ export class NavMenu extends Component {
                 </Navbar>
                 {this.redirect()}
                 <NotificationContainer />
+
             </header>
         );
     }
