@@ -106,10 +106,13 @@ export class NavMenu extends Component {
                         <Collapse className="d-sm-inline-flex flex-sm-row" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink style={this.isAuth() ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Revendedor">Revendedor</NavLink>
+                                    <NavLink style={this.isAuth() ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Inicio">Inicio</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink style={this.isAuth() ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Compra">Compra</NavLink>
+                                    <NavLink style={this.isAuth() ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Revendedor">Revendedores</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink style={this.isAuth() ? {} : { display: 'none' }} tag={Link} className="text-dark" to="/Compra">Compras</NavLink>
                                 </NavItem>
                             </ul>
                         </Collapse>

@@ -23,11 +23,26 @@ export class Revendedor extends Component {
             openModal: false
 
         };
-        this.buscarDados();
         this.salvar = this.salvar.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        fetch("http://localhost:5001/revendedor", {
+            method: "GET",
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    data: responseJson
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    }
+       
     sucesso = () => {
         NotificationManager.success('Revendedor criado!', 'Notification');
     };
@@ -38,6 +53,11 @@ export class Revendedor extends Component {
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
+
+
+
+
+
 
     salvar(event) {
         event.preventDefault();
@@ -66,21 +86,6 @@ export class Revendedor extends Component {
             .catch((error) => {
                 console.error(error);
                 this.erro();
-            });
-    }
-
-    buscarDados() {
-        fetch("http://localhost:5001/revendedor", {
-            method: "GET",
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    data: responseJson
-                });
-            })
-            .catch((error) => {
-                console.error(error);
             });
     }
 
@@ -118,7 +123,7 @@ export class Revendedor extends Component {
                 <br />
                 <br />
                 <Col style={{ textAlign: "right" }}>
-                    
+
                     <Button variant="primary" onClick={() => this.managerModal(true)} size="sm">Cadastrar revendedor</Button>
                 </Col>
                 <Col>

@@ -57,7 +57,7 @@ export class Login extends Component {
         if (jsonToken !== undefined) {
             return (
                 <Switch>
-                    <Redirect to="/Compra" />
+                    <Redirect to="/Inicio" />
                 </Switch>
             )
         }
