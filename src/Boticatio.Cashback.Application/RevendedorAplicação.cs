@@ -16,6 +16,10 @@ namespace Boticatio.Cashback.Application
 
         public void Add(Revendedor revendedor)
         {
+            if (_revendedorRepositorio.ValidarEmailDuplicado(revendedor.Email))
+            {
+                throw new RevendedorDuplicadoException("Já existe um revendedor com esse email");
+            }
             revendedor.Senha = revendedor.CriarHash();
             _revendedorRepositorio.Add(revendedor);
         }

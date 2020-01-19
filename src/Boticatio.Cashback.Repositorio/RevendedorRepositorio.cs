@@ -29,5 +29,9 @@ namespace Boticatio.Cashback.Repositorio
         {
             return Context.Revendedores.FirstOrDefault(x => x.Id == id);
         }
+        public bool ValidarEmailDuplicado(string email)
+        {
+            return Context.Revendedores.Any(x => x.Email == email);
+        }
     }
 }

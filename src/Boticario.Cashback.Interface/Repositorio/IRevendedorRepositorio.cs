@@ -11,5 +11,6 @@ namespace Boticario.Cashback.Interface.Repositorio
         Revendedor GetRevendedorByEmail(string email);
         bool ChecarValidaçãoCPF(int revendedor_Id);
         Revendedor GetRevendedorById(int id);
+        bool ValidarEmailDuplicado(string email);
     }
 }
