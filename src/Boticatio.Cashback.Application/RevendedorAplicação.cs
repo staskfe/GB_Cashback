@@ -24,6 +24,10 @@ namespace Boticatio.Cashback.Application
         {
             return _revendedorRepositorio.Listar();
         }
+        public Revendedor GetRevendedorById(int id)
+        {
+            return _revendedorRepositorio.GetRevendedorById(id);
+        }
 
         public Revendedor ValidarLogin(Revendedor revendedor)
         {

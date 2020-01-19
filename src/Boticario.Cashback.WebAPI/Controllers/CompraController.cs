@@ -13,13 +13,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
     [Route("compra")]
     public class CompraController : ControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
         public readonly ICompraAplicação _compraAplicação;
         private readonly ILogger<RevendedorController> _logger;
-        public CompraController(ICompraAplicação compraAplicação, IHttpClientFactory httpClientFactory, ILogger<RevendedorController> logger)
+        public CompraController(ICompraAplicação compraAplicação,  ILogger<RevendedorController> logger)
         {
             _compraAplicação = compraAplicação;
-            _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
 
@@ -114,30 +112,6 @@ namespace Boticario.Cashback.WebAPI.Controllers
                 throw;
             }
 
-        }
-
-
-        [HttpGet]
-        [Route("acumulado")]
-        public async System.Threading.Tasks.Task<IActionResult> AcumuladoAsync(string cpf)
-        {
-            try
-            {
-                var client = _httpClientFactory.CreateClient("boticario");
-
-                var resposta = await client.GetAsync(string.Format("?cpf={0}", cpf));
-                var responseStream = await resposta.Content.ReadAsStreamAsync();
-                var acumulado = await JsonSerializer.DeserializeAsync<AcumuladoViewModel>(responseStream);
-
-                return base.Ok(acumulado);
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Erro ao buscar o acumulado", ex);
-                throw;
-            }
-      
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Boticario.Cashback.Interface.Aplicação
         void Add(Revendedor revendedor);
         IEnumerable<Revendedor> Listar();
         Revendedor ValidarLogin(Revendedor revendedor);
+        Revendedor GetRevendedorById(int id);
     }
 }
