@@ -1,6 +1,9 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
+using Boticatio.Cashback.Utils.Exceptions;
 using Boticatio.Cashback.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -11,49 +14,106 @@ namespace Boticario.Cashback.WebAPI.Controllers
     public class CompraController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public ICompraAplicação _compraAplicação;
-        public CompraController(ICompraAplicação compraAplicação, IHttpClientFactory httpClientFactory)
+        public readonly ICompraAplicação _compraAplicação;
+        private readonly ILogger<RevendedorController> _logger;
+        public CompraController(ICompraAplicação compraAplicação, IHttpClientFactory httpClientFactory, ILogger<RevendedorController> logger)
         {
             _compraAplicação = compraAplicação;
             _httpClientFactory = httpClientFactory;
+            _logger = logger;
         }
 
         [HttpPost]
         public IActionResult Post(CompraViewModel compraViewModel)
         {
-            var compra = compraViewModel.ToObject();
-            _compraAplicação.Add(compra);
-            return base.Ok(compra.ToViewModel());
+            try
+            {
+                var compra = compraViewModel.ToObject();
+                _compraAplicação.Add(compra);
+                return base.Ok(compra.ToViewModel());
+            }
+            catch (CashbackErrorException ex)
+            {
+                _logger.LogError("Erro ao calcular o cashback", ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao criar um revendedor", ex);
+                throw;
+            }
+  
         }
         [HttpGet]
         public IActionResult Get(int revendedor_Id)
         {
-            var compras = _compraAplicação.Listar(revendedor_Id).ToViewModels();
-            return base.Ok(compras);
+            try
+            {
+                var compras = _compraAplicação.Listar(revendedor_Id).ToViewModels();
+                return base.Ok(compras);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao listar as compras", ex);
+                throw;
+            }
+       
         }
 
         [HttpPut]
         public IActionResult Editar(CompraViewModel compraViewModel)
         {
-            var compra = compraViewModel.ToObject();
-            _compraAplicação.Editar(compra);
+            try
+            {
+                var compra = compraViewModel.ToObject();
+                _compraAplicação.Editar(compra);
 
-            return base.Ok(compra);
+                return base.Ok(compra);
+            }
+            catch (StatusErrorException ex)
+            {
+                _logger.LogError("O status é invalido", ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao editar compra", ex);
+                throw;
+            }
+            
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            _compraAplicação.Remover(id);
-            return base.Ok();
+            try
+            {
+                _compraAplicação.Remover(id);
+                return base.Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao deletar compra", ex);
+                throw;
+            }
+     
         }
 
         [HttpGet]
         [Route("byid")]
         public IActionResult ById(int id)
         {
-            var compras = _compraAplicação.GetPeloId(id).ToViewModel();
-            return base.Ok(compras);
+            try
+            {
+                var compras = _compraAplicação.GetPeloId(id).ToViewModel();
+                return base.Ok(compras);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao buscar compra pelo id", ex);
+                throw;
+            }
+
         }
 
 
@@ -61,13 +121,23 @@ namespace Boticario.Cashback.WebAPI.Controllers
         [Route("acumulado")]
         public async System.Threading.Tasks.Task<IActionResult> AcumuladoAsync(string cpf)
         {
-            var client = _httpClientFactory.CreateClient("boticario");
+            try
+            {
+                var client = _httpClientFactory.CreateClient("boticario");
 
-            var resposta = await client.GetAsync(string.Format("?cpf={0}", cpf));
-            var responseStream = await resposta.Content.ReadAsStreamAsync();
-            var acumulado = await JsonSerializer.DeserializeAsync<AcumuladoViewModel>(responseStream);
+                var resposta = await client.GetAsync(string.Format("?cpf={0}", cpf));
+                var responseStream = await resposta.Content.ReadAsStreamAsync();
+                var acumulado = await JsonSerializer.DeserializeAsync<AcumuladoViewModel>(responseStream);
 
-            return base.Ok(acumulado);
+                return base.Ok(acumulado);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao buscar o acumulado", ex);
+                throw;
+            }
+      
         }
     }
 }

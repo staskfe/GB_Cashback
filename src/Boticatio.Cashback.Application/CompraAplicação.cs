@@ -1,6 +1,7 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
 using Boticario.Cashback.Interface.Repositorio;
 using Boticatio.Cashback.Dominio;
+using Boticatio.Cashback.Utils.Exceptions;
 using System;
 using System.Collections.Generic;
 
@@ -39,7 +40,7 @@ namespace Boticatio.Cashback.Application
             }
             else
             {
-                throw new Exception("Para editar, o status da compra deve ser: Em validação");
+                throw new StatusErrorException("Para editar, o status da compra deve ser: Em validação");
             }
         }
         public IEnumerable<Compra> Listar(int revendedor_Id)

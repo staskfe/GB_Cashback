@@ -1,4 +1,5 @@
 ﻿
+using Boticatio.Cashback.Utils.Exceptions;
 using System;
 
 
@@ -43,10 +44,8 @@ namespace Boticatio.Cashback.Dominio
             }
             else
             {
-                //Erro
+                throw new CashbackErrorException(string.Format("Não foi encontrado nenhum perfil de cashback para o valor: {0}", Valor));
             }
-
-          
         }
 
         public void CalcularCashback(int porcentagem)

@@ -1,6 +1,7 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
 using Boticario.Cashback.Interface.Repositorio;
 using Boticatio.Cashback.Dominio;
+using Boticatio.Cashback.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Boticatio.Cashback.Application
@@ -29,12 +30,13 @@ namespace Boticatio.Cashback.Application
             var usuario = _revendedorRepositorio.GetRevendedorByEmail(revendedor.Email);
             if (usuario == null)
             {
-                throw new System.Exception("usuario ñ existe");
+                throw new UsuarioNaoEncontradoException("Não foi encontrado usuario com essa email");
             }
             if(usuario.Senha != revendedor.CriarHash())
             {
-                throw new System.Exception("Senha invalida");
+                throw new UsuarioNaoEncontradoException("Não foi encontrado usuario com essa senha");
             }
+
             return usuario;
 
         }

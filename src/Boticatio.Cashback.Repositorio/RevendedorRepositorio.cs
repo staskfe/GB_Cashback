@@ -14,7 +14,7 @@ namespace Boticatio.Cashback.Repositorio
         }
         public bool ChecarValidaçãoCPF(int revendedor_Id)
         {
-            return Context.Revendedores.Any(x => x.Id == revendedor_Id && x.CPF == "153.509.460-56");
+            return Context.Revendedores.Any(x => x.Id == revendedor_Id && x.CPF == "153.509.460-56" || x.CPF == "15350946056");
         }
 
         public IEnumerable<Revendedor> Listar()

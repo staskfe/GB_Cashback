@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Boticario.Cashback.Interface\Boticario.Cashback.Interface.csproj" />
+    <ProjectReference Include="..\Boticatio.Cashback.Utils\Boticatio.Cashback.Utils.csproj" />
   </ItemGroup>
 
 </Project>

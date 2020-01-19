@@ -2,6 +2,7 @@
 using Boticatio.Cashback.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Boticario.Cashback.WebAPI.Controllers
 {
@@ -20,17 +21,34 @@ namespace Boticario.Cashback.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post(RevendedorViewModel revendedorViewModel)
         {
-            var revendedor = revendedorViewModel.ToObject();
-            _revendedorAplicação.Add(revendedor);
+            try
+            {
+                var revendedor = revendedorViewModel.ToObject();
+                _revendedorAplicação.Add(revendedor);
 
-            return base.Ok(revendedor);
+                return base.Ok(revendedor);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao criar um revendedor", ex);
+                throw;
+            }
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var result = _revendedorAplicação.Listar();
-            return base.Ok(result.ToViewModels());
+            try
+            {
+                var result = _revendedorAplicação.Listar();
+                return base.Ok(result.ToViewModels());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Erro ao buscar os revendedores", ex);
+                throw;
+            }
+            
         }
     }
 }
