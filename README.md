@@ -5,7 +5,7 @@ Projeto criado para o teste do processo seletivo boticario - iniciado em 16/01/2
 
 #### Na pasta: 1. Apresentação:
 * Boticario.Cashback.Web - Projeto react com o frontend
-* Boticario.Cashback.WebAPI - Projeto API com as rotas solicitadas
+* Boticario.Cashback.WebAPI - Projeto API com as rotas solicitadas - A porta utilizada é: 5001
 #### Na pasta: 2. Aplicação
 * Boticatio.Cashback.Application - Projeto de aplicação, gerencia as regras de negocio do sistema
 #### Na pasta: 3. Dominio
