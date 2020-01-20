@@ -31,7 +31,7 @@ Caso seja necessario alterar a connection string, vá até o projeto Boticatio.C
 
 * Após criar o banco de dados, instale os pacotes necessarios no projeto react, para isso, rode o comando npm-install na pasta ClientApp do projeto Boticario.Cashback.Web
 * Após instalar os pacotes, execute o projeto Boticario.Cashback.WebAPI e rode o npm-start na pasta ClientApp do projeto Boticario.Cashback.Web
-* A tela de login irá aparecer, clique no "Criar conta" e crie um revendedor.
+* A tela de login irá aparecer, clique em "Criar conta" e crie um revendedor.
 * Após criar o revendedor, utilize-o para se logar no sistema!
 * Ao logar, você será redirecionado para tela de inicio, nela é possivel encontrar algumas regras do sistema e informações do desenvolvedor
 * Ao clicar no menu: "Revendedores", você será redirecionado para tela onde é possivel visualizar todos os revendedores criados, e criar um novo revendedor
