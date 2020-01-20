@@ -34,7 +34,7 @@ Boticatio.Cashback.Aplication.Test - Projeto com testes unitarios para a camada 
 ## Como utilizar o sistema
 Antes de iniciar o sistema, é necessario criar o banco de dados. Para isso, rode o comando:
 
-Update-Database -StartupProject Boticatio.Cashback.Infraestrutura -Project Boticatio.Cashback.Infraestrutura
+* Update-Database -StartupProject Boticatio.Cashback.Infraestrutura -Project Boticatio.Cashback.Infraestrutura
 
 Caso seja necessario alterar a connection string, vá até o projeto Boticatio.Cashback.Infraestrutura e abra a classe CashbackFactoryContext
 
