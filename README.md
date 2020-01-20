@@ -36,4 +36,4 @@ Antes de iniciar o sistema, é necessario criar o banco de dados. Para isso, rod
 
 Update-Database -StartupProject Boticatio.Cashback.Infraestrutura -Project Boticatio.Cashback.Infraestrutura
 
-Caso seja necessario 
+Caso seja necessario alterar a connection string, vá até o projeto Boticatio.Cashback.Infraestrutura e abra a class CashbackFactoryContext
