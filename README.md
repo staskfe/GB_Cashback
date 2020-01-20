@@ -1,5 +1,5 @@
 # GB_Cashback
-Projeto criado para o teste do processo seletivo boticario - iniciado em 16/01/2020
+Projeto criado para o teste do processo seletivo boticario - iniciado em 16/01/2020 e finalizado no dia 20/01/2020
 
 ## Projetos criados:
 
