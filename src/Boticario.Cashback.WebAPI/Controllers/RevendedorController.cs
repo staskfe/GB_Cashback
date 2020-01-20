@@ -26,7 +26,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Não precisa de authorize, é utilizado na tela de login
+        /// Não precisa de authorize, é utilizado na tela de login - Cria um revendedor
         /// </summary>
         /// <param name="revendedorViewModel"></param>
         /// <returns></returns>
@@ -56,6 +56,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Lista os revendedores criados
+        /// </summary>
+        /// <returns></returns>
         [Authorize("Bearer")]
         [HttpGet]
         public IActionResult Get()
@@ -75,6 +79,12 @@ namespace Boticario.Cashback.WebAPI.Controllers
             
         }
 
+
+        /// <summary>
+        /// Rota que se comunica com a API do boticario
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize("Bearer")]
         [HttpGet]
         [Route("acumulado")]

@@ -20,6 +20,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Cria uma nova compra
+        /// </summary>
+        /// <param name="compraViewModel"></param>
+        /// <returns></returns>
         [Authorize("Bearer")]
         [HttpPost]
         public IActionResult Post(CompraViewModel compraViewModel)
@@ -47,6 +52,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Lista as compras de um revendedor
+        /// </summary>
+        /// <param name="revendedor_Id"></param>
+        /// <returns></returns>
         [Authorize("Bearer")]
         [HttpGet]
         public IActionResult Get(int revendedor_Id)
@@ -66,6 +76,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Edita uma compra
+        /// </summary>
+        /// <param name="compraViewModel"></param>
+        /// <returns></returns>
         [Authorize("Bearer")]
         [HttpPut]
         public IActionResult Editar(CompraViewModel compraViewModel)
@@ -94,6 +109,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Deleta uma compra
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize("Bearer")]
         [HttpDelete]
         public IActionResult Delete(int id)
@@ -113,6 +133,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Busca uma compra pelo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize("Bearer")]
         [HttpGet]
         [Route("byid")]
