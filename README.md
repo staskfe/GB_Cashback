@@ -42,3 +42,6 @@ Caso seja necessario alterar a connection string, vá até o projeto Boticatio.C
 * ReactJS 
 * EF Core - para criação do banco de dados
 * Authenticação JWT - o token expira a cada 30 minutos
+
+## Software utilizado:
+* Microsoft Visual Studio Community 2019
