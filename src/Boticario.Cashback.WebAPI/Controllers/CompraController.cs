@@ -1,11 +1,10 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
 using Boticatio.Cashback.Utils.Exceptions;
 using Boticatio.Cashback.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Net.Http;
-using System.Text.Json;
 
 namespace Boticario.Cashback.WebAPI.Controllers
 {
@@ -15,12 +14,13 @@ namespace Boticario.Cashback.WebAPI.Controllers
     {
         public readonly ICompraAplicação _compraAplicação;
         private readonly ILogger<RevendedorController> _logger;
-        public CompraController(ICompraAplicação compraAplicação,  ILogger<RevendedorController> logger)
+        public CompraController(ICompraAplicação compraAplicação, ILogger<RevendedorController> logger)
         {
             _compraAplicação = compraAplicação;
             _logger = logger;
         }
 
+        [Authorize("Bearer")]
         [HttpPost]
         public IActionResult Post(CompraViewModel compraViewModel)
         {
@@ -40,8 +40,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
                 _logger.LogError("Erro ao criar um revendedor", ex);
                 throw;
             }
-  
+
         }
+
+        [Authorize("Bearer")]
         [HttpGet]
         public IActionResult Get(int revendedor_Id)
         {
@@ -55,9 +57,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
                 _logger.LogError("Erro ao listar as compras", ex);
                 throw;
             }
-       
+
         }
 
+        [Authorize("Bearer")]
         [HttpPut]
         public IActionResult Editar(CompraViewModel compraViewModel)
         {
@@ -78,9 +81,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
                 _logger.LogError("Erro ao editar compra", ex);
                 throw;
             }
-            
+
         }
 
+        [Authorize("Bearer")]
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -94,9 +98,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
                 _logger.LogError("Erro ao deletar compra", ex);
                 throw;
             }
-     
+
         }
 
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("byid")]
         public IActionResult ById(int id)

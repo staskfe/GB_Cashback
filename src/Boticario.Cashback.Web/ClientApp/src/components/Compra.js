@@ -20,7 +20,7 @@ const columns = [
         texto: "Data da compra"
     },
     {
-        texto: "Procentagem do cashback"
+        texto: "Porcentagem do cashback"
     },
     {
         texto: "Valor do cashback"
@@ -50,8 +50,8 @@ export class Compra extends Component {
     sucesso = (message) => {
         NotificationManager.success(message, 'Notification');
     };
-    erro = () => {
-        NotificationManager.error('Erro ao cadastrar compra');
+    erroMessage = (message) => {
+        NotificationManager.error(message);
     };
 
     componentDidMount() {
@@ -62,16 +62,31 @@ export class Compra extends Component {
 
         fetch("http://localhost:5001/compra?revendedor_Id=" + token.revendedor_id, {
             method: "GET",
+            headers: { 'Authorization': 'Bearer ' + token.accessToken },
+
         })
-            .then((response) => response.json())
+            .then(function (response) {
+                if (response.status === 401) {
+                    NotificationManager.error("401 - O token do usuario logado expirou.");
+
+                    //window.location.reload();
+                    return;
+                }
+                return response.json();
+            })
             .then((responseJson) => {
+                if (responseJson === undefined) {
+                    return;
+                }
                 this.setState({
                     data: responseJson
                 });
             })
-            .catch((error) => {
+            .catch(function (error) {
                 console.error(error);
             });
+
+
     }
 
 
@@ -82,7 +97,7 @@ export class Compra extends Component {
     }
     renderTableData() {
         if (this.state.data.length === 0) {
-            return (<tr style={{ textAlign: "center" }} ><td colspan="7">Nao foram encontrados registros</td></tr>);
+            return (<tr style={{ textAlign: "center" }} ><td colSpan="7">Nao foram encontrados registros</td></tr>);
         }
 
         return this.state.data.map((compras) => {
@@ -168,8 +183,16 @@ export class Compra extends Component {
     deletar(event) {
         event.preventDefault();
         var id = this.state.compraId;
+
+        var token = this.getToken();
+        if (token === undefined) {
+            return;
+        }
+
+
         fetch("http://localhost:5001/compra?id=" + id, {
             method: "DELETE",
+            headers: { 'Authorization': 'Bearer ' + token.accessToken }
         })
             .then(() => {
                 this.managerModalDeletar(false);
@@ -196,7 +219,11 @@ export class Compra extends Component {
 
         fetch("http://localhost:5001/compra", {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Authorization': 'Bearer ' + token.accessToken,
+                'Content-Type': 'application/json'
+
+            },
             body: JSON.stringify(compra)
         })
             .then((response) => response.json())
@@ -239,10 +266,16 @@ export class Compra extends Component {
         compra.Status_Id = this.state.dataToUpdate.status_Id;
         compra.Id = this.state.dataToUpdate.id;
 
-
+        var token = this.getToken();
+        if (token !== undefined) {
+            compra.Revendedor_Id = token.revendedor_id;
+        }
         fetch("http://localhost:5001/compra", {
             method: "PUT",
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Authorization': 'Bearer ' + token.accessToken,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(compra)
         })
             .then((response) => response.json())

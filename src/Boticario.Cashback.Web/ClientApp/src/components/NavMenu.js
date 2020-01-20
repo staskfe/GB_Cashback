@@ -32,7 +32,6 @@ export class NavMenu extends Component {
             collapsed: true,
             logged: true,
         };
-
     }
 
 

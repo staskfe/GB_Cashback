@@ -30,6 +30,9 @@ export class CashbackAcumulado extends Component {
 
         fetch("http://localhost:5001/revendedor/acumulado?id=" + token.revendedor_id, {
             method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token.accessToken,
+            },
         })
             .then((response) => response.json())
             .then((responseJson) => {

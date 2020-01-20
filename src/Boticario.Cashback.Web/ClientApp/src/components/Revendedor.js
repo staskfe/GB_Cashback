@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Table, Button, Col, Modal, Form } from 'react-bootstrap';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 const columns = [
     {
         texto: "Nome"
@@ -30,6 +32,9 @@ export class Revendedor extends Component {
     componentDidMount() {
         fetch("http://localhost:5001/revendedor", {
             method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + this.getToken(),
+            },
         })
             .then((response) => response.json())
             .then((responseJson) => {
@@ -53,11 +58,13 @@ export class Revendedor extends Component {
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
-
-
-
-
-
+    getToken() {
+        var cookieItem = cookies.get('token')
+        if (cookieItem === undefined) {
+            return;
+        }
+        return cookieItem.accessToken;
+    }
 
     salvar(event) {
         event.preventDefault();
@@ -70,7 +77,10 @@ export class Revendedor extends Component {
 
         fetch("http://localhost:5001/revendedor", {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Authorization': 'Bearer ' + this.getToken(),
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(revendedor)
         })
             .then((response) => response.json())

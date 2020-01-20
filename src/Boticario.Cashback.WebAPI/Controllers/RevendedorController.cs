@@ -1,5 +1,7 @@
 ﻿using Boticario.Cashback.Interface.Aplicação;
+using Boticatio.Cashback.Utils.Exceptions;
 using Boticatio.Cashback.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,6 +24,12 @@ namespace Boticario.Cashback.WebAPI.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Não precisa de authorize, é utilizado na tela de login
+        /// </summary>
+        /// <param name="revendedorViewModel"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Post(RevendedorViewModel revendedorViewModel)
         {
@@ -32,6 +40,11 @@ namespace Boticario.Cashback.WebAPI.Controllers
 
                 return base.Ok(revendedor);
             }
+            catch (RevendedorDuplicadoException ex)
+            {
+                _logger.LogError(string.Format("Ja existe um revendedor com o email {0}", revendedorViewModel.Email), ex);
+                throw;
+            }
             catch (Exception ex)
             {
                 _logger.LogError("Erro ao criar um revendedor", ex);
@@ -39,6 +52,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
         }
 
+        [Authorize("Bearer")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -54,6 +68,8 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             
         }
+
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("acumulado")]
         public async System.Threading.Tasks.Task<IActionResult> AcumuladoAsync(int id)
