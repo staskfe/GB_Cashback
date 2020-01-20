@@ -30,8 +30,7 @@ Boticatio.Cashback.ViewModels - Projeto com todas as view models utilizadas
 #### Na pasta: 6. Testes
 Boticatio.Cashback.Aplication.Test - Projeto com testes unitarios para a camada de aplicação
 
-===========================================================================================================================
-
+==============================================================================
 ## Como utilizar o sistema
 Antes de iniciar o sistema, é necessario criar o banco de dados. Para isso, rode o comando:
 
