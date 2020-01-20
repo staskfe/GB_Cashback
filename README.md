@@ -44,6 +44,6 @@ Caso seja necessario alterar a connection string, vá até o projeto Boticatio.C
 * Ao logar, você será redirecionado para tela de inicio, nela é possivel encontrar algumas regras do sistema e informações do desenvolvedor
 * Ao clicar no menu: "Revendedores", você será redirecionado para tela onde é possivel visualizar todos os revendedores criados, e criar um novo revendedor
 * Ao clicar no menu: "Compras", você será redirecionado para tela onde é possivel visualizar/Editar/Excluir as compras do revendedor logado!
-* Ao clicar no menu: "Seja bem vindo(a) {nome}", aparecerá duas opções: "Deslogar" e "Cashback acumulado" - essa opção utiliza a API do boticario para retornar a o cashback acumulado.
+* Ao clicar no menu: "Seja bem vindo(a) {nome}", aparecerá duas opções: "Deslogar" - essa opção deslogado do sistema, e "Cashback acumulado" - essa opção utiliza a API do boticario para retornar a o cashback acumulado.
   
 
