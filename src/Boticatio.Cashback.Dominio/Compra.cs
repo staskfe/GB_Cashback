@@ -30,7 +30,7 @@ namespace Boticatio.Cashback.Dominio
 
         public void AplicarCashback()
         {
-            if (Valor <= 1000)
+            if (Valor > 0 && Valor <= 1000)
             {
                 CalcularCashback(10);
             }

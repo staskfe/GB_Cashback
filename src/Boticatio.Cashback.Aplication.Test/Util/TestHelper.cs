@@ -18,5 +18,17 @@ namespace Boticatio.Cashback.Aplication.Test.Util
                 Senha = "1"
             };
         }
+
+        public static Compra CreateCompra(int id)
+        {
+            return new Compra
+            {
+                Id = id,
+                Codigo = "fake",
+                Data = DateTime.Now,
+                Revendedor_Id = 1,
+                Valor = 10,
+            };
+        }
     }
 }

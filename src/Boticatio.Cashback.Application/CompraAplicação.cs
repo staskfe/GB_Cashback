@@ -17,7 +17,7 @@ namespace Boticatio.Cashback.Application
             _revendedorRepositorio = revendedorRepositorio;
         }
 
-        public void Add(Compra compra)
+        public Compra Add(Compra compra)
         {
             if (_revendedorRepositorio.ChecarValidaçãoCPF(compra.Revendedor_Id))
             {
@@ -29,14 +29,17 @@ namespace Boticatio.Cashback.Application
             }
             compra.AplicarCashback();
             _compraRepositorio.Add(compra);
+
+            return compra;
         }
 
-        public void Editar(Compra compra)
+        public Compra Editar(Compra compra)
         {
             if (compra.StatusEmValidação())
             {
                 compra.AplicarCashback();
                 _compraRepositorio.Editar(compra);
+                return compra;
             }
             else
             {
@@ -57,7 +60,7 @@ namespace Boticatio.Cashback.Application
             }
             else
             {
-                throw new Exception("Para deletar, o status da compra deve ser: Em validação");
+                throw new StatusErrorException("Para deletar, o status da compra deve ser: Em validação");
             }                
         }
         public Compra GetPeloId(int id)

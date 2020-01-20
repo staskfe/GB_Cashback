@@ -27,8 +27,8 @@ namespace Boticario.Cashback.WebAPI.Controllers
             try
             {
                 var compra = compraViewModel.ToObject();
-                _compraAplicação.Add(compra);
-                return base.Ok(compra.ToViewModel());
+                var result = _compraAplicação.Add(compra);
+                return base.Ok(result.ToViewModel());
             }
             catch (CashbackErrorException ex)
             {
@@ -73,9 +73,9 @@ namespace Boticario.Cashback.WebAPI.Controllers
             try
             {
                 var compra = compraViewModel.ToObject();
-                _compraAplicação.Editar(compra);
+                var result =_compraAplicação.Editar(compra);
 
-                return base.Ok(compra);
+                return base.Ok(result.ToViewModel());
             }
             catch (StatusErrorException ex)
             {
