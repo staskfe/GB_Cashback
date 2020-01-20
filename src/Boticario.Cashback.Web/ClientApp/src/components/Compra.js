@@ -53,7 +53,6 @@ export class Compra extends Component {
     erroMessage = (message) => {
         NotificationManager.error(message);
     };
-
     componentDidMount() {
         var token = this.getToken();
         if (token === undefined) {
@@ -63,18 +62,24 @@ export class Compra extends Component {
         fetch("http://localhost:5001/compra?revendedor_Id=" + token.revendedor_id, {
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + token.accessToken },
-
         })
             .then(function (response) {
                 if (response.status === 401) {
                     NotificationManager.error("401 - O token do usuario logado expirou.");
+                    cookies.remove('token')
 
-                    //window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
                     return;
                 }
                 return response.json();
             })
             .then((responseJson) => {
+                if (responseJson.code === 500) {
+                    this.erro(responseJson.message)
+                    return;
+                }
                 if (responseJson === undefined) {
                     return;
                 }
@@ -226,8 +231,23 @@ export class Compra extends Component {
             },
             body: JSON.stringify(compra)
         })
-            .then((response) => response.json())
+            .then(function (response) {
+                if (response.status === 401) {
+                    NotificationManager.error("401 - O token do usuario logado expirou.");
+                    cookies.remove('token')
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                    return;
+                }
+                return response.json();
+            })
             .then((responseJson) => {
+                if (responseJson.code === 500) {
+                    this.erro(responseJson.message)
+                    return;
+                }
                 var updateData = this.state.data;
                 updateData.unshift(responseJson);
                 this.setState({
@@ -278,8 +298,23 @@ export class Compra extends Component {
             },
             body: JSON.stringify(compra)
         })
-            .then((response) => response.json())
+            .then(function (response) {
+                if (response.status === 401) {
+                    NotificationManager.error("401 - O token do usuario logado expirou.");
+                    cookies.remove('token')
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                    return;
+                }
+                return response.json();
+            })
             .then((responseJson) => {
+                if (responseJson.code === 500) {
+                    this.erro(responseJson.message)
+                    return;
+                }
                 this.managerModalEditar(false);
                 this.sucesso('Compra editada com sucesso!');
                 this.componentDidMount();

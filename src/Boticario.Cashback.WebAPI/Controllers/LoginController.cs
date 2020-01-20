@@ -11,7 +11,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
 {
     [ApiController]
     [Route("login")]
-    public class LoginController : Controller
+    public class LoginController : BaseControllerCustom
     {
         public IRevendedorAplicação _revendedorAplicação;
         private readonly ILogger<LoginController> _logger;
@@ -37,13 +37,14 @@ namespace Boticario.Cashback.WebAPI.Controllers
             catch (UsuarioNaoEncontradoException ex)
             {
                 _logger.LogError("Usuario e/ou senha incorretos", ex);
-                var error = new { authenticated = false, message = "Usuario e senha invalidos" };
+                var error = new { authenticated = false, message = "Usuario e/ou senha incorretos" };
                 return base.Ok(error);
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao logar", ex);
-                throw;
+                var message = "Erro ao logar";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
             }
         }
 

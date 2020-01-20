@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, DropdownItem } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const cookies = new Cookies();
 
@@ -34,8 +35,23 @@ export class CashbackAcumulado extends Component {
                 'Authorization': 'Bearer ' + token.accessToken,
             },
         })
-            .then((response) => response.json())
+            .then(function (response) {
+                if (response.status === 401) {
+                    NotificationManager.error("401 - O token do usuario logado expirou.");
+                    cookies.remove('token')
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                    return;
+                }
+                return response.json();
+            })
             .then((responseJson) => {
+                if (responseJson.code === 500) {
+                    this.erro(responseJson.message)
+                    return;
+                }
                 this.setState({
                     modal: !this.state.modal,
                     credito: responseJson.body.credit
@@ -65,6 +81,7 @@ export class CashbackAcumulado extends Component {
                         <h4> Credito total: {this.state.credito}</h4>
                     </Modal.Body>
                 </Modal>
+                <NotificationContainer />
             </div >
         );
     }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -12,7 +13,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
 {
     [ApiController]
     [Route("revendedor")]
-    public class RevendedorController : ControllerBase
+    public class RevendedorController : BaseControllerCustom
     {
         private readonly IHttpClientFactory _httpClientFactory;
         public IRevendedorAplicação _revendedorAplicação;
@@ -42,13 +43,16 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (RevendedorDuplicadoException ex)
             {
-                _logger.LogError(string.Format("Ja existe um revendedor com o email {0}", revendedorViewModel.Email), ex);
-                throw;
+                var message = string.Format("Ja existe um revendedor com o email {0}", revendedorViewModel.Email);
+                _logger.LogError(message, ex);
+
+                return InternalErrorCustom(message);                              
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao criar um revendedor", ex);
-                throw;
+                var message = "Erro ao criar um revendedor";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
             }
         }
 
@@ -63,8 +67,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao buscar os revendedores", ex);
-                throw;
+                var message = "Erro ao buscar os revendedores";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
             
         }
@@ -88,8 +94,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao buscar o acumulado", ex);
-                throw;
+                var message = "Erro ao buscar o acumulado";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
 
         }

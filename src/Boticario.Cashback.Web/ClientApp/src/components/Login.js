@@ -113,11 +113,11 @@ export class Login extends Component {
                         <Form onSubmit={this.ValidarUsuario}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email </Form.Label>
-                                <Form.Control placeholder="Digite seu email" onChange={this.emailAlterado} />
+                                <Form.Control type="email" placeholder="Digite seu email" required onChange={this.emailAlterado} />
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Senha</Form.Label>
-                                <Form.Control type="password" placeholder="Senha" onChange={this.senhaAlterada} />
+                                <Form.Control type="password" required  placeholder="Senha" onChange={this.senhaAlterada} />
                             </Form.Group>
                             <Form.Group controlId="formBasicCheckbox">
                             </Form.Group>
@@ -168,7 +168,11 @@ export class Login extends Component {
             body: JSON.stringify(revendedor)
         })
             .then((response) => response.json())
-            .then(() => {
+            .then((responseJson) => {
+                if (responseJson.code === 500) {
+                    this.erro(responseJson.message)
+                    return;
+                }
                 this.managerModal(false);
                 this.sucesso("Revendedor criado com sucesso!");
             })

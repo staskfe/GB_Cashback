@@ -36,8 +36,26 @@ export class Revendedor extends Component {
                 'Authorization': 'Bearer ' + this.getToken(),
             },
         })
-            .then((response) => response.json())
+            .then(function (response) {
+                if (response.status === 401) {
+                    NotificationManager.error("401 - O token do usuario logado expirou.");
+                    cookies.remove('token')
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                    return;
+                }
+                return response.json();
+            })
             .then((responseJson) => {
+                if (responseJson.code === 500) {
+                    this.erro(responseJson.message)
+                    return;
+                }
+                if (responseJson === undefined) {
+                    return;
+                }
                 this.setState({
                     data: responseJson
                 });
@@ -49,10 +67,10 @@ export class Revendedor extends Component {
     }
        
     sucesso = () => {
-        NotificationManager.success('Revendedor criado!', 'Notification');
+        NotificationManager.success('Revendedor criado!');
     };
-    erro = () => {
-        NotificationManager.error('Erro ao criar revendedor');
+    erro = (message) => {
+        NotificationManager.error(message);
     };
 
     handleChange(e) {
@@ -83,8 +101,23 @@ export class Revendedor extends Component {
             },
             body: JSON.stringify(revendedor)
         })
-            .then((response) => response.json())
+            .then(function (response) {
+                if (response.status === 401) {
+                    NotificationManager.error("401 - O token do usuario logado expirou.");
+                    cookies.remove('token')
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                    return;
+                }
+                return response.json();
+            })
             .then((responseJson) => {
+                if (responseJson.code === 500) {
+                    this.erro(responseJson.message)
+                    return;
+                }
                 var updateData = this.state.data;
                 updateData.unshift(responseJson);
                 this.setState({
@@ -95,7 +128,7 @@ export class Revendedor extends Component {
             })
             .catch((error) => {
                 console.error(error);
-                this.erro();
+                this.erro("Erro ao cadastrar revendedor");
             });
     }
 
@@ -107,7 +140,7 @@ export class Revendedor extends Component {
 
     renderTableData() {
         if (this.state.data.length === 0) {
-            return (<tr style={{ textAlign: "center" }} ><td colspan="3">Nao foram encontrados registros</td></tr>);
+            return (<tr style={{ textAlign: "center" }} ><td colSpan="3">Nao foram encontrados registros</td></tr>);
         }
 
         return this.state.data.map((revendedores) => {

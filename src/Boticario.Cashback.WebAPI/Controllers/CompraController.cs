@@ -10,7 +10,7 @@ namespace Boticario.Cashback.WebAPI.Controllers
 {
     [ApiController]
     [Route("compra")]
-    public class CompraController : ControllerBase
+    public class CompraController : BaseControllerCustom
     {
         public readonly ICompraAplicação _compraAplicação;
         private readonly ILogger<RevendedorController> _logger;
@@ -32,13 +32,17 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (CashbackErrorException ex)
             {
-                _logger.LogError("Erro ao calcular o cashback", ex);
-                throw;
+                var message = "Erro ao calcular o cashback";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao criar um revendedor", ex);
-                throw;
+                var message = "Erro ao criar um revendedor";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
 
         }
@@ -54,8 +58,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao listar as compras", ex);
-                throw;
+                var message = "Erro ao listar as compras";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
 
         }
@@ -73,13 +79,17 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (StatusErrorException ex)
             {
-                _logger.LogError("O status é invalido", ex);
-                throw;
+                var message = "O status é invalido";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao editar compra", ex);
-                throw;
+                var message = "Erro ao editar compra";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
 
         }
@@ -95,8 +105,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao deletar compra", ex);
-                throw;
+                var message = "Erro ao deletar compra";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
 
         }
@@ -113,8 +125,10 @@ namespace Boticario.Cashback.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao buscar compra pelo id", ex);
-                throw;
+                var message = "Erro ao buscar compra pelo id";
+                _logger.LogError(message, ex);
+                return InternalErrorCustom(message);
+
             }
 
         }
